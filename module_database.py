@@ -4,6 +4,20 @@ class database:
     #https://docs.python.org/3/library/sqlite3.html
     def __init__(self, base):
         self.base = ""
+        
+    def test_connexion(db):
+        """
+        fonction permettant de savoir si une base de données peut-être connectées
+        parametres:
+                   db, une chaine de caracteres avec le chemin d'accés à la base
+        renvoie un booléen
+        """
+        try:
+            conn = sqlite3.connect(db)
+        except:
+            return False
+        conn.close()
+        return True
     
     def connexion(self):
         """
