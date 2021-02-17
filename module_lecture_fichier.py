@@ -1,6 +1,6 @@
 import os
 import os.path
-import module_database.py
+import module_database as Database
 
 def fichier_existe(path):
     """
@@ -24,7 +24,14 @@ def lire_fichier(file):
     renvoie une liste de chaine de caracteres, chaque élément est une ligne du fichier
     """
     if fichier_existe(file):
-        f = open(file).readlines()
+        f = open(file)
+        f = [x.rstrip("\n") for x in f.readlines()]
+
+        l = 0
+        while l < len(f): # On enlève les sauts de ligne et les retours à la ligne
+            if f[l] == "":
+                f = f[:l] + f[l+1:]
+            l += 1
         return f
 
 def execute_sql_file(path, file, db):
@@ -36,13 +43,13 @@ def execute_sql_file(path, file, db):
                db, une chaine de caracteres avec le chemin entier vers la base de données dans laquelle exécuter la requete
     renvoie les résultats de la requetes sous forme de liste
     """
-    base = database(db)
+    base = Database.database(db)
     sql_liste = lire_fichier(path + "/" + file)
     sql = ""
-    
+
     for i in range(len(sql_liste) -1):
-        sql += sql_liste[i][:-1] + " "
-        sql += sql_liste[-1]
-    
+        sql += sql_liste[i] + " "
+    sql += sql_liste[-1]
+
     result = base.execute(sql)
     return result
