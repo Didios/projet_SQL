@@ -38,7 +38,6 @@ def stockage_question(path, file):
 
 def question_console():
     dictionnaire = stockage_question("requetes", "alire.md")
-    print(dictionnaire)
 
     for key, value in dictionnaire.items():
         print(value[0])
@@ -46,17 +45,35 @@ def question_console():
     choix = int(input("Quelle question choisit-tu ? "))
 
     if choix in dictionnaire.keys():
-        #print(dictionnaire[choix][0])
-        #print("-----------------------------------")
-        #print(dictionnaire[choix][1])
-        #print("-----------------------------------")
 
         if not Database.database("imdb.db").test_connexion(): # On vérifie que la base de données est disponible
             print("Connexion à la base de données impossible")
             return
 
         resultat = read.execute_sql_file("requetes", dictionnaire[choix][2], "imdb.db")
+
+        # affichage de la réponse
+        separation = "-" * len(dictionnaire[choix][0]) + "------------"
+        print(dictionnaire[choix][0])
+        print(separation)
+        print(dictionnaire[choix][1])
+        print(separation)
         show.afficher_table(resultat)
+
+def test():
+    """
+    fonction permettant de tester l'intégralité des requêtes recensées dans alire.md
+    renvoie une série de print qui indique le résultat du test pour chaque requête
+    """
+    dictionnaire = stockage_question("requetes", "alire.md")
+
+    for choix in dictionnaire.keys():
+
+        try:
+            resultat = read.execute_sql_file("requetes", dictionnaire[choix][2], "imdb.db")
+            print("requete", choix, ": réussi")
+        except:
+            print("requete", choix, ": echec")
 
 
 if __name__ == "__main__":
