@@ -43,8 +43,7 @@ class database:
         renvoie le résultat de la requete dans la base
         """
         self.connexion()
-        self.cur.execute(sql)
-        result = self.cur.fetchall()
+        result = self.cur.execute(sql).fetchall()
         self.deconnexion()
         return result
 

@@ -2,6 +2,7 @@ import os.path
 import module_affichage as show
 import module_database as Database
 import module_lecture_fichier as read
+import test_tkinter as tk
 
 def stockage_question(path, file):
     """
@@ -36,35 +37,10 @@ def stockage_question(path, file):
 
     return requetes
 
-def question_console():
-    dictionnaire = stockage_question("requetes", "alire.md")
-
-    for key, value in dictionnaire.items():
-        print(value[0])
-
-    choix = int(input("Quelle question choisit-tu ? "))
-
-    if choix in dictionnaire.keys():
-
-        if not Database.database("imdb.db").test_connexion(): # On vérifie que la base de données est disponible
-            print("Connexion à la base de données impossible")
-            return
-
-        resultat = read.execute_sql_file("requetes", dictionnaire[choix][2], "imdb.db")
-
-        # affichage de la réponse
-        separation = "-" * len(dictionnaire[choix][0]) + "------------"
-        print(dictionnaire[choix][0])
-        print(separation)
-        print(dictionnaire[choix][1])
-        print(separation)
-        print(show.afficher_table(resultat))
-    else:
-        print("Index de question inexistant")
-        question_console()
-
 def question_semi_console():
     dictionnaire = stockage_question("requetes", "alire.md")
+
+    tk.affichage_question_tkinter("Questions :", dictionnaire, 100)
 
     for key, value in dictionnaire.items():
         print(value[0])
@@ -80,7 +56,6 @@ def question_semi_console():
         resultat = read.execute_sql_file("requetes", dictionnaire[choix][2], "imdb.db")
 
         # affichage de la réponse dans une fenetre tkinter
-        import test_tkinter as tk
         texte_entier = dictionnaire[choix][1] + "\n" + "-" * len(dictionnaire[choix][0]) + "\n\n" + show.afficher_table(resultat)
         tk.affichage_texte_tkinter(dictionnaire[choix][0], texte_entier, len(dictionnaire[choix][0]))
 

@@ -24,8 +24,8 @@ def lire_fichier(file):
     renvoie une liste de chaine de caracteres, chaque élément est une ligne du fichier
     """
     if fichier_existe(file):
-        f = open(file)
-        f = [x.rstrip("\n") for x in f.readlines()] # On enlève les sauts de ligne et les retours à la ligne
+        with open(file) as f:
+            f = [x.rstrip("\n") for x in f.readlines()] # On enlève les sauts de ligne et les retours à la ligne
 
         l = 0
         while l < len(f): # On enlève les lignes vides
@@ -58,7 +58,5 @@ def execute_sql_file(path, file, db):
         cur = conn.cursor()
         result = cur.execute(sql).fetchall()
         conn.close()
-
-    return result
 
     return result

@@ -40,7 +40,7 @@ def afficher_ligne(ligne, dimension):
         chaine += str(ligne[column])
         chaine += " " * (dimension[column] - len(str(ligne[column])))
         chaine += "|"
-    print(chaine)
+    return chaine
 
 def afficher_table(table, debut = 0, fin = None):
     """
@@ -58,7 +58,7 @@ def afficher_table(table, debut = 0, fin = None):
     if debut < 1:
         debut = 0
 
-    # On sélectionne les lignes du tableau que l'on va devoir afficher, pour éviter les tailles de colonne
+    # On sélectionne les lignes du tableau que l'on va devoir afficher, pour éviter les tailles de colonne incohérentes
     table_afficher = []
     for ligne in range(debut, fin):
         table_afficher += [table[ligne]]
@@ -67,10 +67,11 @@ def afficher_table(table, debut = 0, fin = None):
     separation_ligne = separation(dimension_colonne)
 
     # On affiche les lignes choisis
-    print(separation_ligne)
+    affichage_finale = separation_ligne + "\n"
     for ligne in table_afficher:
-        afficher_ligne(ligne, dimension_colonne)
-        print(separation_ligne)
+        affichage_finale += afficher_ligne(ligne, dimension_colonne) + "\n"
+        affichage_finale += separation_ligne + "\n"
+    return affichage_finale
 
 def projection_table(table, *args):
     """
@@ -103,5 +104,5 @@ if __name__ == "__main__":
     c = conn.cursor()
     c.execute("SELECT * FROM name_basics")
     resultat = c.fetchall()
-    afficher_table(resultat, 6, 25)
+    print(afficher_table(resultat, 6, 25))
     conn.close()
