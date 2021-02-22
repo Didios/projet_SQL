@@ -3,6 +3,7 @@ import os.path
 from modules import module_database as Database
 from modules import module_lecture_fichier as read
 from modules import module_tkinter as tk
+import tkinter as Tk
 
 def stockage_question(path, file):
     """
@@ -48,7 +49,20 @@ def question():
 
     taille_max = len_maximum([i[0] for i in dictionnaire.values()]) # On détermine la longueur maximum des questions afin d'ajuster la fenetre
 
-    tk.affichage_question_tkinter("Questions :", dictionnaire, taille_max) # On lance l'affichage des questions dans une fenetre tkinter
+    root = tk.affichage_question_tkinter("Questions :", dictionnaire, taille_max) # On lance l'affichage des questions dans une fenetre tkinter
+
+    barremenu = Tk.Menu(root)
+
+    barremenu_cascade = Tk.Menu(barremenu, tearoff=0)
+
+    barremenu_cascade.add_command(label="Aide", underline=0, command = aide)
+    barremenu_cascade.add_command(label="Crédits", underline=0, command = credit)
+
+    barremenu.add_cascade(label="A propos", underline=0, menu=barremenu_cascade)
+
+    root.config(menu=barremenu)
+
+    root.mainloop()
 
 def len_maximum(tab):
     """
@@ -64,6 +78,38 @@ def len_maximum(tab):
             maxi = len(str(elmt))
 
     return maxi
+
+def affichage_texte_tkinter(document):
+    """
+    fonction permettant d'afficher un document texte dans une fenetre tkinter, les sauts de ligne ne sont pas pris en compte
+    parametres:
+               document, une chaine de caracteres avec le chemin d'acces au document texte
+    renvoie une fenêtre tkinter avec le contenu de document
+    """
+    contenu = read.lire_fichier(document) # On lit le document
+
+    # On transforme la liste de ligne en chaine de caracteres
+    contenu_str = ""
+    for ligne in contenu:
+        contenu_str += ligne + "\n"
+
+    # On parametres une fenetre tkinter
+    root = Tk.Tk()
+    root.title("Aide")
+
+    # On y ajoute contenu_str dans une zone de texte
+    zone_texte = Tk.Text(root, width = 70)
+    zone_texte.insert("insert", contenu_str)
+
+    # On affiche le tout
+    zone_texte.pack()
+    root.mainloop()
+
+def aide():
+    affichage_texte_tkinter("README.md")
+
+def credit():
+    affichage_texte_tkinter("credits.md")
 
 def test():
     """

@@ -1,24 +1,23 @@
-# projet_SQL
-projet SQL terminal NSI
 ###############################################
-DESCRIPTION :
-
+DESCRIPTION : 
+.
 Projet "questionnaire" sur le SQL
-
-Il propose des questions à effectuer sur la base de donnée imdb.db
-""" Elle est trop volumineuse pour être jointe"""
-
-De plus, les réponses se présente sous la forme :
+.
+Il propose des questions a effectuer sur la base de donnee imdb.db
+""" Elle est trop volumineuse pour etre jointe"""
+.
+De plus, les reponses se presente sous la forme :
 	QUESTION
 	REPONSE EN SQL ="SELECT colonne
-			FROM table ..."
+			FROM table ..."	
 	RESULTAT DE LA REQUETE
-
-Le tout sous la forme de fenêtre tkinter
+.
+Le tout sous la forme de fenetre tkinter
 #################################################
-Sur un projet proposé par M.CHOUCHI
-
-Réalisé par DIDIER Mathias
-En année de Terminale
-
-################################################# 
+Sur un projet propose par M.CHOUCHI
+.
+Réalise par DIDIER Mathias
+En annee de Terminale
+.
+#################################################
+"""A ameliorer avec des informations complementaires"""
