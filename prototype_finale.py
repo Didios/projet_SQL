@@ -51,17 +51,19 @@ def question():
 
     root = tk.affichage_question_tkinter("Questions :", dictionnaire, taille_max) # On lance l'affichage des questions dans une fenetre tkinter
 
+    # On crée un Menu pour l'aide et les crédits
     barremenu = Tk.Menu(root)
 
     barremenu_cascade = Tk.Menu(barremenu, tearoff=0)
 
-    barremenu_cascade.add_command(label="Aide", underline=0, command = aide)
-    barremenu_cascade.add_command(label="Crédits", underline=0, command = credit)
+    # On ajoute les deux sous-menus : aide et credits
+    barremenu_cascade.add_command(label="Aide", underline=0, command = aide) # la fonction aide sert à mettre des parametres en dérivation, puisque directement, cela ne fonctionne pas
+    barremenu_cascade.add_command(label="Crédits", underline=0, command = credit) # la fonction credit sert à mettre des parametres en dérivation, puisque directement, cela ne fonctionne pas
 
     barremenu.add_cascade(label="A propos", underline=0, menu=barremenu_cascade)
 
+    # On affiche la fenetre et le menu
     root.config(menu=barremenu)
-
     root.mainloop()
 
 def len_maximum(tab):
@@ -106,9 +108,17 @@ def affichage_texte_tkinter(document):
     root.mainloop()
 
 def aide():
+    """
+    fonction permettant d'effectuer l'affichage de l'aide
+    renvoie une fenetre tkinter avec l'aide
+    """
     affichage_texte_tkinter("README.md")
 
 def credit():
+    """
+    fonction permettant d'effectuer l'affichage des crédits
+    renvoie une fenetre tkinter avec les crédits
+    """
     affichage_texte_tkinter("credits.md")
 
 def test():
