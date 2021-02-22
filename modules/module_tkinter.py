@@ -70,7 +70,7 @@ def affichage_question_tkinter(titre, stockage, taille):
 
     # On affiche la fenetre tkinter et ce qu'elle contient
     questions.pack()
-    root.mainloop()
+    return root
 
 if __name__ == "__main__":
     affichage_texte_tkinter("test", "Bonjour\nCa va ?", 7)
