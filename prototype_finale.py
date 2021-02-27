@@ -75,8 +75,8 @@ def len_maximum(tab):
     """
     maxi = 0
 
-    for elmt in tab:
-        if len(str(elmt)) > maxi:
+    for elmt in tab: # On parcours le tableau
+        if len(str(elmt)) > maxi: # on choicit la plus grande longueur d'élément
             maxi = len(str(elmt))
 
     return maxi
@@ -126,15 +126,23 @@ def test():
     fonction permettant de tester l'intégralité des requêtes recensées dans alire.md
     renvoie une série de print qui indique le résultat du test pour chaque requête
     """
+    tout_juste = True
+    liste_echec = []
+
     dictionnaire = stockage_question("requetes", "alire.md")
 
     for choix in dictionnaire.keys(): # Pour chaque éléments enregistrés dans le dictionnaire
 
         try: # On teste si on peut en effectuer la requete
             resultat = read.execute_sql_file("requetes", dictionnaire[choix][2], "imdb.db")
-            print("requete", choix, ": réussi")
         except:
-            print("requete", choix, ": echec")
+            tout_juste = False
+            liste_echec += [choix]
+
+    if tout_juste == True:
+        print("Tous les tests ont été passé avec succès")
+    else:
+        print("Liste des tests ayant échoué : ", liste_echec)
 
 if __name__ == "__main__":
     question()
