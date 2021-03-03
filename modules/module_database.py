@@ -1,15 +1,22 @@
 # importation du module necessaires
 import sqlite3
+import mariadb
 
 class database:
     # https://docs.python.org/3/library/sqlite3.html
-    def __init__(self, base):
+    def __init__(self, base, module = "sqlite3"):
         """
         méthode constructrice de la classe
         parametres:
-                   base,une chaine de caracteres avec le chemin d'accès à la base de données
+                   base, une chaine de caracteres avec le chemin d'accès à la base de données
+                   module, optionnel, chaine de caracteres indiquant le module à utiliser, soit 'sqlite3', soit 'mariadb'
         """
-        self.base = ""
+        self.base = base
+
+        if module == "sqlite3":
+            self.module = module
+        else:
+            self.module = "mariadb"
 
     def test_connexion(self):
         """
@@ -17,7 +24,12 @@ class database:
         renvoie un booléen
         """
         try:
-            conn = sqlite3.connect(self.base)
+            if self.module == "sqlite3":
+                conn = sqlite3.connect(self.base)
+            else:
+                conn = mariadb.connect(
+                user = "root",
+                database=self.base)
         except:
             return False
 
@@ -28,14 +40,20 @@ class database:
         """
         méthode permettant de se connecter à la base de donnée
         """
-        self.con = sqlite3.connect(self.base)
-        self.cur = self.con.cursor()
+        if self.module == "sqlite3":
+            self.conn = sqlite3.connect(self.base)
+        else:
+            self.conn = mariadb.connect(
+                user="root",
+                database=self.base)
+
+        self.cur = self.conn.cursor()
 
     def deconnexion(self):
         """
         méthode permettant de se deconnecter à la base de donnée
         """
-        self.con.close()
+        self.conn.close()
 
     def execute(self,sql):
         """
