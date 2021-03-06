@@ -42,7 +42,7 @@ def affichage_question_tkinter(titre, stockage, taille):
                titre, une chaine de caracteres donnant le titre de la fenetre
                stockage, un dictionnaire construit comme tel : {entier : [question, reponse, fichier contenant la réponse], ...}
                taille, un entier qui est le nombre maximal de caracteres sur une ligne
-    affiche une fenetre tkinter avec l'intégralité des questions recensées
+    renvoi une fenetre tkinter avec l'intégralité des questions recensées
     """
 
     def selection(event):
@@ -70,6 +70,19 @@ def affichage_question_tkinter(titre, stockage, taille):
 
     # On affiche la fenetre tkinter et ce qu'elle contient
     questions.pack()
+    return root
+
+def clean(root, *elmt):
+    """
+    fonction permettant de vider une fenetre tkinter en excluant certains element
+    parametres:
+        root, le fenetre tkinter a 'nettoyer'
+        elmt, les éléments de la fenetre que l'on ne doit pas enlever, fonctionne par type (tous les Canvas, ...)
+    renvoi la fenetre vidé
+    """
+    for c in root.winfo_children():
+        if c.winfo_class() not in elmt:
+            c.destroy()
     return root
 
 if __name__ == "__main__":
