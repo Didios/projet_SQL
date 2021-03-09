@@ -5,9 +5,11 @@ from tkinter import Tk, Text, Listbox, Scrollbar
 try:
     import module_affichage as show
     import module_lecture_fichier as read
+    import module_tri as tris
 except:
     from modules import module_affichage as show
     from modules import module_lecture_fichier as read
+    from modules import module_tri as tris
 
 def affichage_texte_tkinter(titre, texte, taille = 100):
     """
@@ -33,6 +35,7 @@ def affichage_texte_tkinter(titre, texte, taille = 100):
     # On affiche la fenetre ainsi que les éléments qu'elle contient
     scroll.pack(side="right", fill="y")
     affiche.pack(side="left")
+    affiche.configure(state='disabled') # comme on veut juste afficher du texte, on désactive la zone de texte afin que l'utilisateur ne puisse pas la modifier
     root.mainloop()
 
 def affichage_question_tkinter(titre, stockage, taille):
@@ -64,14 +67,14 @@ def affichage_question_tkinter(titre, stockage, taille):
 
     questions = Listbox(root, width = taille, height = 15) # On definit une liste qui contiendrat toutes les questions
 
-    # On ajoute chaque questions stockées dans la liste
-    numero_precedent = 0
-    for numero, question in stockage.items():
-        if numero < numero_precedent:
-            questions.insert(numero -1, question[0])
-        else:
-            questions.insert(numero, question[0])
-        numero_precedent = numero
+    # On ajoute chaque questions stockées dans la liste dans l'ordre croissant
+    ordre_questions = [t for t in stockage.keys()]
+    ordre_questions = tris.tri_fusion(ordre_questions)
+
+    i = 0
+    while i < len(ordre_questions):
+        questions.insert(i, stockage[ordre_questions[i]][0])
+        i += 1
 
     # On affiche la fenetre tkinter et ce qu'elle contient
     questions.pack(side = "left")
