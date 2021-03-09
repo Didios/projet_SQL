@@ -286,7 +286,6 @@ def supprimer(root, dico):
     frame = Tk.Frame(canvas)
     frame.pack()
 
-
     vbar = Tk.Scrollbar(ff,orient="vertical")
     vbar.pack(side="right", fill="y")
     vbar.config(command=canvas.yview)
@@ -320,50 +319,32 @@ def len_maximum(tab):
     maxi = 0
 
     for elmt in tab: # On parcours le tableau
-        if len(str(elmt)) > maxi: # on choicit la plus grande longueur d'élément
+        if len(str(elmt)) > maxi: # on choisit la plus grande longueur d'élément
             maxi = len(str(elmt))
 
     return maxi
-
-def affichage_texte_tkinter(document):
-    """
-    fonction permettant d'afficher un document texte dans une fenetre tkinter, les sauts de ligne ne sont pas pris en compte
-    parametres:
-               document, une chaine de caracteres avec le chemin d'acces au document texte
-    renvoie une fenêtre tkinter avec le contenu de document
-    """
-    contenu = read.lire_fichier(document) # On lit le document
-
-    # On transforme la liste de ligne en chaine de caracteres
-    contenu_str = ""
-    for ligne in contenu:
-        contenu_str += ligne + "\n"
-
-    # On parametres une fenetre tkinter
-    root = Tk.Tk()
-    root.title("Aide")
-
-    # On y ajoute contenu_str dans une zone de texte
-    zone_texte = Tk.Text(root, width = 70)
-    zone_texte.insert("insert", contenu_str)
-
-    # On affiche le tout
-    zone_texte.pack()
-    root.mainloop()
 
 def aide():
     """
     fonction permettant d'effectuer l'affichage de l'aide
     renvoie une fenetre tkinter avec l'aide
     """
-    affichage_texte_tkinter("README.md")
+    texte_liste = read.lire_fichier("README.md", True)
+    texte = ""
+    for t in texte_liste:
+        texte += t + "\n"
+    tk.affichage_texte_tkinter("aide", texte, len_maximum(texte_liste) +2)
 
 def credit():
     """
     fonction permettant d'effectuer l'affichage des crédits
     renvoie une fenetre tkinter avec les crédits
     """
-    affichage_texte_tkinter("credits.md")
+    texte_liste = read.lire_fichier("credits.md", True)
+    texte = ""
+    for t in texte_liste:
+        texte += t + "\n"
+    tk.affichage_texte_tkinter("credits", texte, len_maximum(texte_liste) +2)
 
 def test():
     """
