@@ -62,11 +62,16 @@ def affichage_question_tkinter(titre, stockage, taille):
 
     root.bind("<Double-Button-1>", selection) # On définit l'événement "double clic gauche" comme exécuteur de la fonction selection
 
-    questions = Listbox(root, width = taille, height = 15) # On definit une liste qui contiendrat toutes les question
+    questions = Listbox(root, width = taille, height = 15) # On definit une liste qui contiendrat toutes les questions
 
     # On ajoute chaque questions stockées dans la liste
+    numero_precedent = 0
     for numero, question in stockage.items():
-        questions.insert(numero, question[0])
+        if numero < numero_precedent:
+            questions.insert(numero -1, question[0])
+        else:
+            questions.insert(numero, question[0])
+        numero_precedent = numero
 
     # On affiche la fenetre tkinter et ce qu'elle contient
     questions.pack(side = "left")

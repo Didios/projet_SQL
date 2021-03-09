@@ -36,13 +36,12 @@ def lire_fichier(file, ligne_vide = False):
 
         if not ligne_vide:
             l = 0
-            while l < len(f): # On enlève les lignes vides
+            while l < len(f):
 
-                if f[l] == "":
+                if f[l] == "": # On enlève les lignes vides
                     f = f[:l] + f[l+1:]
-
-                l += 1
-
+                else:
+                    l += 1
         return f
 
 def execute_sql_file(path, file, db):
