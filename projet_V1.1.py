@@ -297,7 +297,7 @@ def supprimer(root, dico):
 
                 # on avance le compteur l des indices tant qu'on n'est pas sur la bonne question
                 l = 1
-                while alire[l][:3] != n_question:
+                while alire[l][:len(n_question)] != n_question:
                     l += 1
 
                 # on supprime le fichier sql associé qui se trouve une ligne au dessus
