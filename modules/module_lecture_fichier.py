@@ -22,24 +22,26 @@ def fichier_existe(path):
     else:
         return False
 
-def lire_fichier(file):
+def lire_fichier(file, ligne_vide = False):
     """
     fonction qui lit un fichier choisit
     parametres:
                file, une chaine de caracteres contenant le chemin vers le fichier à lire
+               ligne_vide, optionnel, un booléen indiquant si les lignes vides représenté par "" doivent être garder, par défaut False
     renvoie une liste de chaine de caracteres, chaque élément est une ligne du fichier
     """
     if fichier_existe(file): # on vérifie que le fichier existe
         with open(file) as f: # with permet de gerer l'ouverture et la fermeture automatique du fichier
             f = [x.rstrip("\n") for x in f.readlines()] # On enlève les sauts de ligne et les retours à la ligne, inutile puisque chaque ligne est un éléments du tableau
 
-        l = 0
-        while l < len(f): # On enlève les lignes vides
+        if not ligne_vide:
+            l = 0
+            while l < len(f): # On enlève les lignes vides
 
-            if f[l] == "":
-                f = f[:l] + f[l+1:]
+                if f[l] == "":
+                    f = f[:l] + f[l+1:]
 
-            l += 1
+                l += 1
 
         return f
 
@@ -70,3 +72,41 @@ def execute_sql_file(path, file, db):
         conn.close()
 
     return result
+
+def suppr_lignes(file, *i_lines):
+    """
+    fonction permettant de supprimer les lignes d'un document grâce à leurs indices
+    parametres:
+        file, une chaine de caracteres indiquant le chemin vers le fichier
+        i_lines, des nombres entier étant les indices des lignes à supprimer (la première ligne à pour indice 1
+    """
+    if fichier_existe(file):
+        save = []
+
+        with open(file) as f:
+
+            i = 1
+            for line in f.readlines():
+                if i not in i_lines:
+                    save.append(line)
+                i += 1
+
+        with open(file, "w") as f:
+            f.writelines(save)
+
+def suppr_fichier(file, verif = True):
+    """
+    fonction permettant de supprimer un fichier
+    parametres:
+        file, une chaine de caracteres avec le chemin d'accès au fichier ou au répertoire
+        verif, optionnel, un booléen indiquant si le programme doit demander la confirmation de l'utilisateur ou non, par défaut sur True
+    """
+    if fichier_existe(file) and "." in file:
+        kill = True
+        if verif:
+            from tkinter import messagebox
+            if not messagebox.askyesno("Confirmation", "Êtes-vous sûr de vouloir supprimer le fichier " + file +  " ?"):
+                kill = False
+
+        if kill:
+            os.remove(file)
