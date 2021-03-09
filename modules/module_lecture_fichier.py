@@ -8,6 +8,30 @@ try:
 except:
     from modules import module_database as Database
 
+def devine_numero(texte):
+        """
+        sous-fonction permettant d'isoler les nombre présent dans une chaine de caracteres, les nombres décimaux ne sont pas compter
+        parametres:
+            texte, une chaine de caracteres
+        renvoi une liste avec tout les nombres trouver dans texte
+        """
+        liste_numero = []
+
+        i = 0
+        while i < len(texte):
+
+            nbr = ""
+            while texte[i] in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
+                nbr += texte[i]
+                i += 1
+
+            if nbr != "":
+                nbr = int(nbr)
+                liste_numero += [nbr]
+
+            i += 1
+        return liste_numero
+
 def fichier_existe(path):
     """
     fonction permettant de connaitre l'existence d'un répertoire ou d'un fichier
