@@ -261,7 +261,7 @@ def supprimer(root, dico):
                 i_lignes += [l]
                 l += 1
 
-                while l < len(alire) and alire[l][0] != "#":
+                while l < len(alire) and len(alire[l]) > 0 and alire[l][0] != "#":
                     i_lignes += [l]
                     l += 1
 
@@ -299,7 +299,10 @@ def supprimer(root, dico):
         valeur = Tk.IntVar()
         check = Tk.Checkbutton(frame, text = dico[number][0], variable = valeur)
         ligne += 1
-        questions_supprimer.append([valeur, "#" + str(number)])
+        if number < 10:
+            questions_supprimer.append([valeur, "#0" + str(number)])
+        else:
+            questions_supprimer.append([valeur, "#" + str(number)])
         check.grid(row = ligne, column = 0, sticky="w")
 
     # affichage d'un bouton de validation et de retour
