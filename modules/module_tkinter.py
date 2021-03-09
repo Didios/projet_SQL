@@ -48,6 +48,30 @@ def affichage_question_tkinter(titre, stockage, taille):
     renvoi une fenetre tkinter avec l'intégralité des questions recensées
     """
 
+    def devine_numero(texte):
+        """
+        sous-fonction permettant d'isoler les nombre présent dans une chaine de caracteres, les nombres décimaux ne sont pas compter
+        parametres:
+            texte, une chaine de caracteres
+        renvoi une liste avec tout les nombres trouver dans texte
+        """
+        liste_numero = []
+
+        i = 0
+        while i < len(texte):
+
+            nbr = ""
+            while texte[i] in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
+                nbr += texte[i]
+                i += 1
+
+            if nbr != "":
+                nbr = int(nbr)
+                liste_numero += [nbr]
+
+            i += 1
+        return liste_numero
+
     def selection(event):
         """
         sous-fonction permettant d'afficher la réponse à la question selectionner
@@ -55,9 +79,12 @@ def affichage_question_tkinter(titre, stockage, taille):
                    event, un évenement
         affiche une fenetre tkinter avec la reponse à la question choisit
         """
-        choix = questions.curselection()[0] +1 # on détermine le numéro de la question choisit
-        texte_entier = stockage[choix][1] + "\n" + "-" * len(questions.get(choix-1)) + "\n\n" + show.afficher_table(read.execute_sql_file("requetes", stockage[choix][2], "imdb.db")) # On définit le texte à afficher dans la nouvelle fenetre en une seule ligne/chaine de caracteres
-        affichage_texte_tkinter(stockage[choix][0], texte_entier, len(questions.get(choix-1))) # On affiche la réponse dans une nouvelle fenetre tkinter
+        indice = questions.curselection()[0] # on détermine l'indice de la question choisit
+        question = questions.get(indice)
+        numero = devine_numero(question)[0] # on détermine le numero de la question
+
+        texte_entier = stockage[numero][1] + "\n" + "-" * len(question) + "\n\n" + show.afficher_table(read.execute_sql_file("requetes", stockage[numero][2], "imdb.db")) # On définit le texte à afficher dans la nouvelle fenetre en une seule ligne/chaine de caracteres
+        affichage_texte_tkinter(stockage[numero][0], texte_entier, max([len(t) for t in texte_entier.split("\n")])) # On affiche la réponse dans une nouvelle fenetre tkinter
 
     # On définit une nouvelle fenetre ainsi que son titre
     root = Tk()
@@ -73,7 +100,7 @@ def affichage_question_tkinter(titre, stockage, taille):
 
     i = 0
     while i < len(ordre_questions):
-        questions.insert(i, stockage[ordre_questions[i]][0])
+        questions.insert("end", stockage[ordre_questions[i]][0])
         i += 1
 
     # On affiche la fenetre tkinter et ce qu'elle contient
