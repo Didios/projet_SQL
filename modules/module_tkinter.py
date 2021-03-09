@@ -69,7 +69,7 @@ def affichage_question_tkinter(titre, stockage, taille):
         questions.insert(numero, question[0])
 
     # On affiche la fenetre tkinter et ce qu'elle contient
-    questions.pack()
+    questions.pack(side = "left")
     return root
 
 def clean(root, *elmt):
