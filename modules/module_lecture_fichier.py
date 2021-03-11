@@ -101,7 +101,7 @@ def suppr_lignes(file, *i_lines):
     fonction permettant de supprimer les lignes d'un document grâce à leurs indices
     parametres:
         file, une chaine de caracteres indiquant le chemin vers le fichier
-        i_lines, des nombres entier étant les indices des lignes à supprimer (la première ligne à pour indice 1
+        i_lines, des nombres entier étant les indices des lignes à supprimer (la première ligne à pour indice 1)
     """
     if fichier_existe(file):
         save = []
@@ -133,3 +133,54 @@ def suppr_fichier(file, verif = True):
 
         if kill:
             os.remove(file)
+
+def add_fichier(path, file, contenu = ""):
+    """
+    fonction permettant de créer un fichier
+    parametres:
+        path, une chaine de caracteres avec le chemin d'accès au répertoire qui contiendrat le fichier
+        file, une chaine de caracteres avec le nom du fichier
+        contenu, une chaine de caracteres à mettre dans le fichier crée
+    """
+    with open(path + "/" + file, "x") as fichier:
+        fichier.write(contenu)
+
+def add_ligne(path, file, contenu):
+    """
+    fonction permettant d'ajouter des lignes à un fichier, si celui-ci n'existe pas, il est crée
+    parametres:
+        path, une chaine de caracteres avec le chemin d'accès au répertoire qui contiendrat le fichier
+        file, une chaine de caracteres avec le nom du fichier
+        contenu, une chaine de caracteres à mettre dans le fichier crée
+    """
+    if not fichier_existe(path + "/" + file):
+        add_fichier(path, file)
+
+    with open(path + "/" + file, "a") as fichier:
+        fichier.write(contenu)
+
+def remplacer_ligne(path, file, numero, texte):
+    """
+    fonction permettant de remplacer des lignes d'un fichier par un autre texte, si la ligne n'existe pas, le texte est placé en dernière ligne
+    parametres:
+        path, une chaine de caracteres avec le chemin d'accès au répertoire qui contiendrat le fichier
+        file, une chaine de caracteres avec le nom du fichier
+        numero, un nombre entier étant l'indice de la ligne à remplacer (la première ligne à pour indice 1)
+        texte, une chaine de caractères à mettre à la place de la ligne
+    """
+    contenu = lire_fichier(path + "/" + file, True)
+    taille = len(contenu)
+
+    if numero > taille:
+        contenu += [texte]
+    else:
+        contenu[numero -1] = texte
+
+    suppr_lignes(path + "/" + file, *[i for i in range(1, taille +1)])
+
+    nouveau = ""
+    for i in contenu:
+        nouveau += i + "\n"
+
+    add_ligne(path, file, nouveau)
+

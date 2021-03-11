@@ -38,14 +38,16 @@ def affichage_texte_tkinter(titre, texte, taille = 100):
     affiche.configure(state='disabled') # comme on veut juste afficher du texte, on désactive la zone de texte afin que l'utilisateur ne puisse pas la modifier
     root.mainloop()
 
-def affichage_question_tkinter(titre, stockage, taille):
+def affichage_question_tkinter(titre, stockage, taille, base, root = None):
     """
     fonction permettant d'afficher une série de questions ainsi que de gerer les réponses contenue dans un dictionnaire, le tout dans une fenetre tkinter
     parametres:
                titre, une chaine de caracteres donnant le titre de la fenetre
                stockage, un dictionnaire construit comme tel : {entier : [question, reponse, fichier contenant la réponse], ...}
                taille, un entier qui est le nombre maximal de caracteres sur une ligne
-    renvoi une fenetre tkinter avec l'intégralité des questions recensées
+               base, une chaine de caracteres avec le chemin d'accès vers la base de données
+               root, optionnel, une fenêtre tkinter dans laquelle on doit afficher les questions
+    renvoi une fenetre tkinter avec l'intégralité des questions recensées sous forme d'une liste de choix clickable ainsi que l'objet ListBox crée
     """
 
     def selection(event):
@@ -59,11 +61,13 @@ def affichage_question_tkinter(titre, stockage, taille):
         question = questions.get(indice)
         numero = read.devine_numero(question)[0] # on détermine le numero de la question
 
-        texte_entier = stockage[numero][1] + "\n" + "-" * len(question) + "\n\n" + show.afficher_table(read.execute_sql_file("requetes", stockage[numero][2], "imdb.db")) # On définit le texte à afficher dans la nouvelle fenetre en une seule ligne/chaine de caracteres
-        affichage_texte_tkinter(stockage[numero][0], texte_entier, max([len(t) for t in texte_entier.split("\n")])) # On affiche la réponse dans une nouvelle fenetre tkinter
+        texte_entier = stockage[numero][0] + "\n\n" + stockage[numero][1] + "\n" + "-" * len(question) + "\n\n" + show.afficher_table(read.execute_sql_file("requetes", stockage[numero][2], base)) # On définit le texte à afficher dans la nouvelle fenetre en une seule ligne/chaine de caracteres
+        affichage_texte_tkinter("Question " + str(numero) + " :", texte_entier, max([len(t) for t in texte_entier.split("\n")])) # On affiche la réponse dans une nouvelle fenetre tkinter
 
-    # On définit une nouvelle fenetre ainsi que son titre
-    root = Tk()
+    # On définit une fenetre ainsi que son titre
+    if root is None:
+        root = Tk()
+
     root.title(titre)
 
     root.bind("<Double-Button-1>", selection) # On définit l'événement "double clic gauche" comme exécuteur de la fonction selection
@@ -81,7 +85,7 @@ def affichage_question_tkinter(titre, stockage, taille):
 
     # On affiche la fenetre tkinter et ce qu'elle contient
     questions.pack(side = "left")
-    return root
+    return root, questions
 
 def clean(root, *elmt):
     """
