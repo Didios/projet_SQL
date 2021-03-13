@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Test</title>
+        <meta charset="utf-8">
+		<style> table, th, td {border: 1px solid black;  padding: 5px; border-collapse: collapse;} </style>
+    </head>
+    
+    <body>
+        <h1>Titre principal</h1>
+        <p>Un premier paragraphe</p>
+        <button onclick="alert('Bouton cliqué')">Cliquez moi !</button>
+        <button ondblclick="alert('Bouton double cliqué')">Double-Cliquez moi !</button>
+        <table>
+			<tr onmouseover="this.style.backgroundColor='orange'"
+				onmouseout="this.style.backgroundColor='white'">
+				<td>Un paragraphe dans un div</td>
+				<td>Un paragraphe dans un div</td>
+			</tr>
+			<tr onmouseover="this.style.backgroundColor='orange'"
+				onmouseout="this.style.backgroundColor='white'">
+				<td>Un autre paragraphe dans le div</td>
+				<td>Un paragraphe dans un div</td>
+			</tr>
+        </table>
+		<select name="test" size= 5>
+			<option onmouseover="this.style.backgroundColor='orange'"
+					onmouseout="this.style.backgroundColor='white'" 
+					value="1">Option 1</option>
+			<option onmouseover="this.style.backgroundColor='orange'"
+					onmouseout="this.style.backgroundColor='white'"value="2">Option 2</option>
+			<option onmouseover="this.style.backgroundColor='orange'"
+					onmouseout="this.style.backgroundColor='white'"value="3">Option 3</option>
+			<option onmouseover="this.style.backgroundColor='orange'"
+					onmouseout="this.style.backgroundColor='white'"value="4">Option 4</option>
+			<option onmouseover="this.style.backgroundColor='orange'"
+					onmouseout="this.style.backgroundColor='white'"value="5">Option 5</option>
+		</select>
+    </body>
+</html>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Test 2</title>
+        <meta charset="utf-8">
+    </head>
+    
+    <body>
+        <p>ca marche !!!!</p>
+	<script LANGUAGE = "JAVASCRIPT">
+	function alerter() {
+		alert("test fonctionnelle");
+	} 
+	</script>
+	<button onclick="alerter()">bouton test fonction html javascript !</button>
+	
+	<!-- ne fonctionne pas :( -->
+	<!--
+	<button onclick="test()">bouton test fonction html python !</button>
+	
+	<script type="text/python">
+    def test(bidule = "test"):
+		print("Content-type: text/html")
+		print("\n")
+		print("<html><head>")
+		print("\n" + titre + "\n")
+		print("</head><body>")
+        print("<p>" + bidule + "</p>")
+		print("</body></html>")
+		
+	</script>
+	-->	
+	
+	<select name='questions' size=2>
+
+	<option ondblclick="alert('01.Quels sont les differents types de titres dans cette base de donnees ?\n\nSELECT\nDISTINCT(titleType)\nFROM title_basics\n\n-------------------------------------------------------------------------\n\n+-------------+\n|short        |\n+-------------+\n|movie        |\n+-------------+\n|tvSeries     |\n+-------------+\n|tvMiniSeries |\n+-------------+\n|tvMovie      |\n+-------------+\n|tvEpisode    |\n+-------------+\n|tvShort      |\n+-------------+\n|video        |\n+-------------+\n|tvSpecial    |\n+-------------+\n|videoGame    |\n+-------------+\n')" value='0'>
+	test texte tout attacher
+	</option>
+	<option ondblclick="alert('Content-type: text/html\n<html><head></head><body><p>bidule</p></body></html>')", value = 2>
+	test balise
+	</option>
+	</select>
+    </body>
+</html>
