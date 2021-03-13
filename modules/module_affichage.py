@@ -1,3 +1,5 @@
+#!"C:\Winpython\python-3.8.5.amd64\python.exe"
+
 def taille_colonne(tableau):
     """
     fonction qui renvoie la taille minimale que doit avoir chaque colonne du tableau à afficher
@@ -111,7 +113,7 @@ if __name__ == "__main__":
     import sqlite3
     conn = sqlite3.connect('imdb.db')
     c = conn.cursor()
-    c.execute("SELECT * FROM name_basics")
+    c.execute("SELECT * FROM title_basics")
     resultat = c.fetchall()
-    print(afficher_table(resultat, 6, 25))
+    print(afficher_table(resultat))
     conn.close()

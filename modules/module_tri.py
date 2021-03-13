@@ -1,3 +1,5 @@
+#!"C:\Winpython\python-3.8.5.amd64\python.exe"
+
 '''
 Remarque
 Le sobriquet « tri bulles » vient d’une interprétation imagée selon laquelle l’algorithme

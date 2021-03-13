@@ -1,3 +1,5 @@
+#!"C:\Winpython\python-3.8.5.amd64\python.exe"
+
 # importation du module necessaires
 import sqlite3
 import mariadb
@@ -63,7 +65,10 @@ class database:
         renvoie le résultat de la requete dans la base
         """
         self.connexion()
-        result = self.cur.execute(sql).fetchall()
+        try:
+            result = self.cur.execute(sql).fetchall()
+        except:
+            result = None
         self.deconnexion()
         return result
 
