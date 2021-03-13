@@ -14,6 +14,7 @@ def debuthtml(titre = ""):
     fonction permettant de gérer le début d'un affichage dans une page web
     parametres:
         titre, optionnel, une chaine de caracteres qui définit le nom de la page web
+    renvoi une chaine de caracteres avec le texte necessaire
     """
     print("Content-type: text/html")
     print("\n")
@@ -34,7 +35,9 @@ def tableau_html(tableau, debut = True, fin = True):
         tableau, une liste dont chaque élément est une lsite avec avec le contenu d'une ligne du tableau
         debut, optionnel, un booléen indiquant si la page web doit être débuté, par défaut True
         fin, optionnel, un booléen indiquant si la page web doit être terminer, par défaut True
+    renvoie une chaine de caracters avec l'impression necessaire
     """
+
     if debut:
         debuthtml()
 
@@ -54,6 +57,7 @@ def tableau_html(tableau, debut = True, fin = True):
     if fin:
         finhtml()
 
+
 def texte_html(texte, debut = True, fin = True):
     """
     fonction permettant d'afficher un texte dans une page web
@@ -61,6 +65,7 @@ def texte_html(texte, debut = True, fin = True):
         texte, une chaine de caracteres à afficher
         debut, optionnel, un booléen indiquant si la page web doit être débuté, par défaut True
         fin, optionnel, un booléen indiquant si la page web doit être terminer, par défaut True
+    renvoie une chaine de caracteres avec l'impression necessaires
     """
     if debut:
         debuthtml()
@@ -78,40 +83,61 @@ def affichage_question_html(stockage, base):
     parametres:
                stockage, un dictionnaire construit comme tel : {entier : [question, reponse, fichier contenant la réponse], ...}
                base, une chaine de caracteres avec le chemin d'accès vers la base de données
-    renvoi une fenetre tkinter avec l'intégralité des questions recensées sous forme d'une liste de choix clickable ainsi que l'objet ListBox crée
+    renvoi une chaine de caracteres avec l'impression necessaires
     """
 
-    def selection(question):
-        """
-        sous-fonction permettant d'afficher la réponse à la question selectionner
-        parametres:
-                   question, une chiane de cracteres avec la question cliquer
-        affiche une fenetre tkinter avec la reponse à la question choisit
-        """
-        debuthtml()
-        print("<p>" + question + "</p>")
-        finhtml()
-        numero = read.devine_numero(question)[0] # on détermine le numero de la question
-        """
-        texte_entier = stockage[numero][0] + "\n\n" + stockage[numero][1] + "\n" + "-" * len(question) + "\n\n" + show.afficher_table(read.execute_sql_file("requetes", stockage[numero][2], base)) # On définit le texte à afficher dans la nouvelle fenetre en une seule ligne/chaine de caracteres
-        texte_html("Question " + str(numero) + " :\n", texte_entier)
-        """
-    # On ajoute chaque questions stockées dans la liste dans l'ordre croissant
+    # On ajoute chaque questions stockées dans la liste dans l'ordre croissant et on les tris par orde croissant
     ordre_questions = [t for t in stockage.keys()]
     ordre_questions = tris.tri_fusion(ordre_questions)
 
-    def test(bidule):
-        debuthtml()
-        print("<p>" + test + "</p>")
-        finhtml()
+    for fichier in read.lister_fichier("modules/data"):
+        read.suppr_fichier("modules/data/" + fichier, False)
 
 
-    print("<select name='questions' size=" + str(len(stockage)) + ">\n") # On definit une liste qui contiendrat toutes les questions
+    print("<br>")
 
-    i = 0
+    i = 10
     while i < len(ordre_questions):
-        print('<option ondblclick="' + "print('bonjour, tu as double cliquer')" + '" value=' + "'" + str(i) + "'>")#'selection('" + stockage[ordre_questions[i]][0] + "')' value='" + str(i) + "'>")
-        print(stockage[ordre_questions[i]][0])
-        print("</option>\n")
+        numero = ordre_questions[i]
+        question = stockage[numero][0]
+
+        def new_page():
+
+            page = "<html><head>\n%s\n</head><body>" % question
+            page += "\n<br><br>\n"
+
+            requete = stockage[numero][1].split("\n")
+            for ligne in requete:
+                page += ligne
+                page += "<br>"
+
+            page += "-" * len(question) + "\n<br><br>\n"
+
+            tableau_page = read.execute_sql_file("requetes", stockage[numero][2], base)
+            page += "<style> table, th, td {border: 1px solid black;  padding: 5px; border-collapse: collapse;} </style>\n"
+
+            table = "<table>\n"
+            for ligne in tableau_page:
+                table += "<tr>\n"
+                for colonne in ligne:
+                    table += "<td>" + str(colonne) + "</td>\n"
+                table += "</tr>\n"
+            table +="</table>\n"
+
+            page += table
+            page += "</body></html>"
+
+            nom_page = str(ordre_questions[i]) + ".html"
+
+            read.add_fichier("modules/data", nom_page, page)
+            return "modules/data/" + nom_page
+
+        lieu = new_page()
+        # probleme à partir de numero = 9
+
+        print('<a href="%s" target="_blank" title="%s">' % (lieu, lieu))
+        print(question)
+        print("</a>\n")
+        print("<br>")
+
         i += 1
-    print("</select>")

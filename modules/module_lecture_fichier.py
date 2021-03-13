@@ -186,3 +186,30 @@ def remplacer_ligne(path, file, numero, texte):
 
     add_ligne(path, file, nouveau)
 
+def lister_fichier(path):
+    """
+    fonction permettant de lister tous les éléments d'un répertoire donnée
+    parametres:
+        path, une chaine de caracteres indiquant le chemin vers le repertoire à lister
+    renvoie une liste avec le nom de tous les éléments présent
+    """
+    return os.listdir(path)
+
+def suppr_repertoire(path):
+    """
+    fonction permettant de supprimer un répertoire
+    parametres:
+        path, une chaine de caracteres indiquant le chemin vers le repertoire à supprimer
+    """
+    import shutil as sh
+    sh.rmtree(path)
+    os.rmdir(path)
+
+def add_repertoire(path, name):
+    """
+    fonction permettant de supprimer un répertoire
+    parametres:
+        path, une chaine de caracteres indiquant le chemin vers le repertoire parent
+        name, une chaine de caracteres avec le nom du nouveau repertoire
+    """
+    os.mkdir(path + "/" + name)
