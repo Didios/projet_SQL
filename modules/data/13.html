@@ -1,0 +1,40 @@
+<html><head>
+13.Quels sont les 10 films d animation ayant recu plus de 1000 votes les mieux notes ?
+</head><body>
+<br><br>
+SELECT originalTitle<br>FROM title_basics<br>JOIN title_ratings <br>ON title_ratings.tconst = title_basics.tconst <br>WHERE genres <br>LIKE "%Animation%"<br>AND numVotes > 1000<br>AND titleType = "movie"<br>ORDER BY averageRating <br>DESC<br>LIMIT 10<br><br>--------------------------------------------------------------------------------------
+<br><br>
+<style> table, th, td {border: 1px solid black;  padding: 5px; border-collapse: collapse;} </style>
+<table>
+<tr>
+<td>30 Years and 15 Minutes</td>
+</tr>
+<tr>
+<td>Ramayana: The Legend of Prince Rama</td>
+</tr>
+<tr>
+<td>Sen to Chihiro no kamikakushi</td>
+</tr>
+<tr>
+<td>Flåklypa Grand Prix</td>
+</tr>
+<tr>
+<td>Hotaru no haka</td>
+</tr>
+<tr>
+<td>The Lion King</td>
+</tr>
+<tr>
+<td>Primal: Tales of Savagery</td>
+</tr>
+<tr>
+<td>Ostrov sokrovishch. Sokrovishcha kapitana Flinta</td>
+</tr>
+<tr>
+<td>Mononoke-hime</td>
+</tr>
+<tr>
+<td>Ostrov Sokrovishch</td>
+</tr>
+</table>
+</body></html>
