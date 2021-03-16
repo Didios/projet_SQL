@@ -113,6 +113,8 @@ def question(requetes, config, base, dictionnaire = None):
 
     pprint.finhtml()
 
+    pprint.affichage_question_html(dictionnaire, base, True)
+
 def ajouter(root, dico, requetes, config, base):
     """
     fonction permettant d'ajouter une requête via une fenetre tkinter
