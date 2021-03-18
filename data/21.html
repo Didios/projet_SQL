@@ -1,0 +1,229 @@
+<html><head>
+21.Quels sont les noms des episodes de Game of Thrones ?
+</head><body>
+<br><br>
+SELECT primaryTitle<br>FROM title_basics<br>JOIN title_episode <br>ON title_episode.tconst = title_basics.tconst <br>WHERE parenttconst <br>IN(SELECT title_basics.tconst <br>	FROM title_basics<br>	WHERE primaryTitle = "Game of Thrones"<br>	AND titleType = "tvSeries")<br> <br> <br><br>--------------------------------------------------------
+<br><br>
+<style> table, th, td {border: 1px solid black;  padding: 5px; border-collapse: collapse;} </style>
+<table>
+<tr>
+<td>Winter Is Coming</td>
+</tr>
+<tr>
+<td>The Kingsroad</td>
+</tr>
+<tr>
+<td>Lord Snow</td>
+</tr>
+<tr>
+<td>Cripples, Bastards, and Broken Things</td>
+</tr>
+<tr>
+<td>The Wolf and the Lion</td>
+</tr>
+<tr>
+<td>A Golden Crown</td>
+</tr>
+<tr>
+<td>You Win or You Die</td>
+</tr>
+<tr>
+<td>The Pointy End</td>
+</tr>
+<tr>
+<td>Fire and Blood</td>
+</tr>
+<tr>
+<td>Baelor</td>
+</tr>
+<tr>
+<td>The North Remembers</td>
+</tr>
+<tr>
+<td>The Night Lands</td>
+</tr>
+<tr>
+<td>Garden of Bones</td>
+</tr>
+<tr>
+<td>What Is Dead May Never Die</td>
+</tr>
+<tr>
+<td>The Ghost of Harrenhal</td>
+</tr>
+<tr>
+<td>Blackwater</td>
+</tr>
+<tr>
+<td>The Old Gods and the New</td>
+</tr>
+<tr>
+<td>A Man Without Honor</td>
+</tr>
+<tr>
+<td>The Prince of Winterfell</td>
+</tr>
+<tr>
+<td>Valar Morghulis</td>
+</tr>
+<tr>
+<td>Dark Wings, Dark Words</td>
+</tr>
+<tr>
+<td>Valar Dohaeris</td>
+</tr>
+<tr>
+<td>The Rains of Castamere</td>
+</tr>
+<tr>
+<td>Kissed by Fire</td>
+</tr>
+<tr>
+<td>Mhysa</td>
+</tr>
+<tr>
+<td>And Now His Watch Is Ended</td>
+</tr>
+<tr>
+<td>Walk of Punishment</td>
+</tr>
+<tr>
+<td>Second Sons</td>
+</tr>
+<tr>
+<td>The Climb</td>
+</tr>
+<tr>
+<td>The Bear and the Maiden Fair</td>
+</tr>
+<tr>
+<td>Two Swords</td>
+</tr>
+<tr>
+<td>The Lion and the Rose</td>
+</tr>
+<tr>
+<td>Breaker of Chains</td>
+</tr>
+<tr>
+<td>Oathkeeper</td>
+</tr>
+<tr>
+<td>The Mountain and the Viper</td>
+</tr>
+<tr>
+<td>First of His Name</td>
+</tr>
+<tr>
+<td>The Watchers on the Wall</td>
+</tr>
+<tr>
+<td>The Children</td>
+</tr>
+<tr>
+<td>Mockingbird</td>
+</tr>
+<tr>
+<td>The Laws of Gods and Men</td>
+</tr>
+<tr>
+<td>The Wars to Come</td>
+</tr>
+<tr>
+<td>The Red Woman</td>
+</tr>
+<tr>
+<td>The House of Black and White</td>
+</tr>
+<tr>
+<td>The Dance of Dragons</td>
+</tr>
+<tr>
+<td>High Sparrow</td>
+</tr>
+<tr>
+<td>Sons of the Harpy</td>
+</tr>
+<tr>
+<td>Kill the Boy</td>
+</tr>
+<tr>
+<td>Unbowed, Unbent, Unbroken</td>
+</tr>
+<tr>
+<td>The Gift</td>
+</tr>
+<tr>
+<td>Hardhome</td>
+</tr>
+<tr>
+<td>Mother's Mercy</td>
+</tr>
+<tr>
+<td>Home</td>
+</tr>
+<tr>
+<td>Oathbreaker</td>
+</tr>
+<tr>
+<td>Book of the Stranger</td>
+</tr>
+<tr>
+<td>The Door</td>
+</tr>
+<tr>
+<td>Blood of My Blood</td>
+</tr>
+<tr>
+<td>The Broken Man</td>
+</tr>
+<tr>
+<td>No One</td>
+</tr>
+<tr>
+<td>Battle of the Bastards</td>
+</tr>
+<tr>
+<td>The Winds of Winter</td>
+</tr>
+<tr>
+<td>Dragonstone</td>
+</tr>
+<tr>
+<td>Stormborn</td>
+</tr>
+<tr>
+<td>The Queen's Justice</td>
+</tr>
+<tr>
+<td>The Spoils of War</td>
+</tr>
+<tr>
+<td>Eastwatch</td>
+</tr>
+<tr>
+<td>Beyond the Wall</td>
+</tr>
+<tr>
+<td>The Dragon and the Wolf</td>
+</tr>
+<tr>
+<td>Winterfell</td>
+</tr>
+<tr>
+<td>A Knight of the Seven Kingdoms</td>
+</tr>
+<tr>
+<td>The Long Night</td>
+</tr>
+<tr>
+<td>The Last of the Starks</td>
+</tr>
+<tr>
+<td>The Bells</td>
+</tr>
+<tr>
+<td>The Iron Throne</td>
+</tr>
+</table>
+</body></html>
