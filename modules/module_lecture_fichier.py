@@ -1,3 +1,5 @@
+# programme réalisé par Didier Mathias en classe de Terminale B
+
 # importation des modules necessaire
 import os
 import os.path
@@ -183,4 +185,3 @@ def remplacer_ligne(path, file, numero, texte):
         nouveau += i + "\n"
 
     add_ligne(path, file, nouveau)
-
