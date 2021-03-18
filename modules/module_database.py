@@ -1,3 +1,5 @@
+# programme réalisé par Didier Mathias en classe de Terminale B
+
 # importation du module necessaires
 import sqlite3
 import mariadb
@@ -15,8 +17,10 @@ class database:
 
         if module == "sqlite3":
             self.module = module
-        else:
+        elif module == "mariadb":
             self.module = "mariadb"
+        else:
+            raise ModuleError("Le nom du module n'est pas reconnu")
 
     def test_connexion(self):
         """
