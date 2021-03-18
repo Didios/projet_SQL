@@ -1,3 +1,5 @@
+# programme réalisé par Didier Mathias en classe de Terminale B
+
 # On importe les modules necessaires
 from tkinter import Tk, Text, Listbox, Scrollbar
 
