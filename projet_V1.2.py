@@ -1,3 +1,5 @@
+# programme réalisé par Didier Mathias en classe de Terminale B
+
 # importation des modules necessaires
 import os.path
 from modules import module_database as Database
