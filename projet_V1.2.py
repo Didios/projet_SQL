@@ -400,10 +400,9 @@ def supprimer(root, dico, requetes, config, base):
 
             retour() # on retourne au menu
 
-    def retour(event = ""):
+    def retour(event = ""): # la parametre event ne sert a rien, c juste car il faut obligatoirement un parametre pour les .bind tkinter
         """
         sous-fonction permettant de revenir au menu principal
-        elle fait redémarrer le programme
         """
         question(root, requetes, config, base)
 
