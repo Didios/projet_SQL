@@ -91,9 +91,6 @@ def affichage_question_html(stockage, base, creation_dossier = False):
     ordre_questions = tris.tri_fusion(ordre_questions)
 
     if creation_dossier:
-        for fichier in read.lister_fichier("modules/data"):
-            read.suppr_fichier("modules/data/" + fichier, False)
-
         def new_page(stockage, question, numero): # prend trop de temps
             page = "<html><head>\n%s\n</head><body>" % question
             page += "\n<br><br>\n"
@@ -105,11 +102,9 @@ def affichage_question_html(stockage, base, creation_dossier = False):
 
             page += "-" * len(question) + "\n<br><br>\n"
 
-            #tableau_page = [[1, "Georges", "ragondin"], [2, "Patrick", "lapin"], [3, "Marc", "herisson"]]
-            tableau_page = read.execute_sql_file("requetes", stockage[numero][2], base)
-            # certaine requetes étant trop longue à charger (30 s)
-            # la programme s'arrête et la page ne charge que ce qu'elle a obtenu jusque la
-            # il faudrait faire quelque chose de dynamique = éviter de charger les requetes au lancement
+            tableau_page = read.execute_sql_file("requetes", stockage[numero][2], base) # cette ligne prend trop de temps à s'executer pour certaines requetes
+
+            # on cree un tableau qui acceuillera la reponse
             page += "<style> table, th, td {border: 1px solid black;  padding: 5px; border-collapse: collapse;} </style>\n"
 
             table = "<table>\n"
@@ -125,17 +120,18 @@ def affichage_question_html(stockage, base, creation_dossier = False):
 
             nom_page = str(numero) + ".html"
 
-            read.add_fichier("modules/data", nom_page, page)
+            read.add_fichier("data", nom_page, page)
 
         i = 0
         while i < len(ordre_questions):
             numero = ordre_questions[i]
             question = stockage[numero][0]
 
-            new_page(stockage, question, numero)
+            # on crée les fichiers contenant les réponses aux requetes
+            if not read.fichier_existe("data/" + str(numero) + ".html"):
+                new_page(stockage, question, numero)
 
             i += 1
-
     else:
         print("<br>")
 
@@ -144,15 +140,10 @@ def affichage_question_html(stockage, base, creation_dossier = False):
             numero = ordre_questions[i]
             question = stockage[numero][0]
 
-            lieu = "'" + "modules/data/" + str(numero) + ".html" + "'"
+            lieu = "'" + "data/" + str(numero) + ".html" + "'"
 
-            # on fait charger les boutons puis on construit les pages
-            print('<button onclick="window.location.href = %s;"> %s </button>' % (lieu, question))
-            """
-            print('<a href="%s" target="_blank" title="">' % lieu)
-            print(question)
-            print("</a>\n")
-            """
+            # on fait charger les boutons
+            print('<button onclick="window.open(%s)"> %s </button>' % (lieu, question))
             print("<br>")
 
             i += 1
