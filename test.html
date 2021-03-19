@@ -5,12 +5,26 @@
         <meta charset="utf-8">
 		<style> table, th, td {border: 1px solid black;  padding: 5px; border-collapse: collapse;} </style>
     </head>
+	
+	<!-- test de menu -->
+	<menu type="toolbar">
+		<menu label="Fichier">
+			<button type="button" onclick="alert('menu 1 bouton 1')">menu 1 bouton 1</button>
+			<button type="button" onclick="alert('menu 1 bouton 2')">menu 1 bouton 2</button>
+		</menu>
+		<menu label="Editer">
+			<button type="button" onclick="alert('menu 2')">menu 2</button>
+		</menu>
+	</menu>
     
+	<!-- test d'affichage -->
     <body>
         <h1>Titre principal</h1>
         <p>Un premier paragraphe</p>
+		<!-- test bouton avec effet -->
         <button onclick="alert('Bouton cliqué')">Cliquez moi !</button>
         <button ondblclick="alert('Bouton double cliqué')">Double-Cliquez moi !</button>
+		<!-- test liste avec passage de couleur au survol -->
         <table>
 			<tr onmouseover="this.style.backgroundColor='orange'"
 				onmouseout="this.style.backgroundColor='white'">
@@ -23,6 +37,7 @@
 				<td>Un paragraphe dans un div</td>
 			</tr>
         </table>
+		<!-- test liste avec passage de couleur au survol -->
 		<select name="test" size= 5>
 			<option onmouseover="this.style.backgroundColor='orange'"
 					onmouseout="this.style.backgroundColor='white'" 
@@ -39,6 +54,7 @@
     </body>
 </html>
 
+<!-- test de redémarrage d'une page dans la même page -->
 <!DOCTYPE html>
 <html>
     <head>
@@ -48,6 +64,7 @@
     
     <body>
         <p>ca marche !!!!</p>
+	<!-- test d'ajout de code javascript -->
 	<script LANGUAGE = "JAVASCRIPT">
 	function alerter() {
 		alert("test fonctionnelle");
@@ -55,8 +72,7 @@
 	</script>
 	<button onclick="alerter()">bouton test fonction html javascript !</button>
 	
-	<!-- ne fonctionne pas :( -->
-	<!--
+	<!-- test d'ajout de code python, ne fonctionne pas :( -->
 	<button onclick="test()">bouton test fonction html python !</button>
 	
 	<script type="text/python">
@@ -70,14 +86,22 @@
 		print("</body></html>")
 		
 	</script>
-	-->	
-	<button onclick="window.location.href = 'https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal';">Test bouton lien Wikipédia</button>
 	
+	<!-- test de bouton avec lien vers une autre page -->
+	</br>
+	<button onclick="window.location.href = 'https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal';">bouton lien Wikipédia</button>
+	</br>
+	<button onclick="window.open('https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal')">bouton nouvel onglet</button>
+	</br>
+	
+	<!-- test d'affichage de requete dans une fenetre d'alerte -->
 	<select name='questions' size=2>
 
 	<option ondblclick="alert('01.Quels sont les differents types de titres dans cette base de donnees ?\n\nSELECT\nDISTINCT(titleType)\nFROM title_basics\n\n-------------------------------------------------------------------------\n\n+-------------+\n|short        |\n+-------------+\n|movie        |\n+-------------+\n|tvSeries     |\n+-------------+\n|tvMiniSeries |\n+-------------+\n|tvMovie      |\n+-------------+\n|tvEpisode    |\n+-------------+\n|tvShort      |\n+-------------+\n|video        |\n+-------------+\n|tvSpecial    |\n+-------------+\n|videoGame    |\n+-------------+\n')" value='0'>
-	test texte tout attacher
+	test affichage requete alerte
 	</option>
+	</br>
+	<!-- test utilisation html dans boite de dialogue html, non fonctionnelle -->
 	<option ondblclick="alert('Content-type: text/html\n<html><head></head><body><p>bidule</p></body></html>')", value = 2>
 	test balise
 	</option>
