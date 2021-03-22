@@ -51,20 +51,6 @@ def Lancement(base, requetes, config):
         requetes, une chaine de caracteres avec le chemin d'accès aux dossier contenant les requetes et le fichier de configuration
         config, une chaine de caracteres avec le nom du fichier de configuration (voir énoncé)
     """
-    def add(event = None):
-        """
-        sous-fonction permettant l'exécution de la fonction ajouter car les commandes associé à tkinter ne peuvent pas contenir d'argument
-        """
-        dictionnaire = stockage_question(requetes, config) # On stocke toutes les informations contenu dans le fichier de configuration
-        ajouter(dictionnaire, requetes, config, base)
-
-    def suppr(event = None):
-        """
-        sous-fonction permettant l'exécution de la fonction supprimer car les commandes associé à tkinter ne peuvent pas contenir d'argument
-        """
-        dictionnaire = stockage_question("requetes", "alire.md") # On stocke toutes les informations contenu dans le fichier de configuration
-        supprimer(dictionnaire, "requetes", "alire.md", base)
-
     credit()
     aide()
 
@@ -78,19 +64,15 @@ def Lancement(base, requetes, config):
     print("<menu>")
 
     # menu avec bouton :                            permanents
-    #    aide
-    #    credits
     #    ajout
     #    suppression
 
     question(requetes, config, base)
 
+    pprint.finhtml()
+
     # raccourci clavier
-"""
-    # ajout de raccourci clavier
-    root.bind("<Control-KeyPress-a>", add)
-    root.bind("<Control-KeyPress-s>", suppr)
-"""
+    # Ctrl + A = ajouter
 
 def question(requetes, config, base, dictionnaire = None):
     """
@@ -108,8 +90,6 @@ def question(requetes, config, base, dictionnaire = None):
         dictionnaire = stockage_question(requetes, config) # On stocke toutes les informations contenu dans le fichier de configuration
 
     pprint.affichage_question_html(dictionnaire, base)
-
-    pprint.finhtml()
 
     pprint.affichage_question_html(dictionnaire, base, True)
 
