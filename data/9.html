@@ -1,13 +1,13 @@
 <html><head>
-09.Qui a ecrit le scenario du film Taxi sorti en 1998 ?
+09.Qui a ecrit le scenario du film Taxi sorti en 1998 ?
 </head><body>
 <br><br>
-SELECT primaryName<br>FROM name_basics<br>JOIN title_principals <br>ON title_principals.nconst = name_basics.nconst <br>JOIN title_basics <br>ON title_basics.tconst = title_principals.tconst <br>WHERE category = "writer"<br>AND job = "scenario"<br>AND originalTitle = "Taxi"<br>AND startYear = 1998<br>AND titleType = "movie"<br><br>-------------------------------------------------------
+SELECT primaryName<br>FROM name_basics<br>JOIN title_principals <br>ON title_principals.nconst = name_basics.nconst <br>JOIN title_basics <br>ON title_basics.tconst = title_principals.tconst <br>WHERE category = "writer"<br>AND job = "scenario"<br>AND originalTitle = "Taxi"<br>AND startYear = 1998<br>AND titleType = "movie"<br><br><br>--------------------------------------------------------
 <br><br>
 <style> table, th, td {border: 1px solid black;  padding: 5px; border-collapse: collapse;} </style>
 <table>
-<tr>
-<td>Luc Besson</td>
-</tr>
+	<tr>
+		<td>Luc Besson</td>
+	</tr>
 </table>
 </body></html>

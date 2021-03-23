@@ -1,60 +1,60 @@
 <html><head>
-10.Quelles sont les noms et roles (category et job) des personnes intervenant dans la production du film Return of the Jedi ?
+10.Quelles sont les noms et roles (category et job) des personnes intervenant dans la production du film Return of the Jedi ?
 </head><body>
 <br><br>
-SELECT primaryName, category, job <br>FROM name_basics, title_principals, title_basics<br>WHERE name_basics.nconst = title_principals.nconst <br>AND title_principals.tconst = title_basics.tconst <br>AND primaryTitle <br>LIKE "%Return of the Jedi%"<br>AND titleType = "movie"<br><br>-----------------------------------------------------------------------------------------------------------------------------
+SELECT primaryName, category, job <br>FROM name_basics, title_principals, title_basics<br>WHERE name_basics.nconst = title_principals.nconst <br>AND title_principals.tconst = title_basics.tconst <br>AND primaryTitle <br>LIKE "%Return of the Jedi%"<br>AND titleType = "movie"<br><br><br>------------------------------------------------------------------------------------------------------------------------------
 <br><br>
 <style> table, th, td {border: 1px solid black;  padding: 5px; border-collapse: collapse;} </style>
 <table>
-<tr>
-<td>John Williams</td>
-<td>composer</td>
-<td>None</td>
-</tr>
-<tr>
-<td>Mark Hamill</td>
-<td>actor</td>
-<td>None</td>
-</tr>
-<tr>
-<td>Harrison Ford</td>
-<td>actor</td>
-<td>None</td>
-</tr>
-<tr>
-<td>Carrie Fisher</td>
-<td>actress</td>
-<td>None</td>
-</tr>
-<tr>
-<td>Billy Dee Williams</td>
-<td>actor</td>
-<td>None</td>
-</tr>
-<tr>
-<td>Richard Marquand</td>
-<td>director</td>
-<td>None</td>
-</tr>
-<tr>
-<td>Lawrence Kasdan</td>
-<td>writer</td>
-<td>screenplay by</td>
-</tr>
-<tr>
-<td>George Lucas</td>
-<td>writer</td>
-<td>screenplay by</td>
-</tr>
-<tr>
-<td>Howard G. Kazanjian</td>
-<td>producer</td>
-<td>producer</td>
-</tr>
-<tr>
-<td>Rick McCallum</td>
-<td>producer</td>
-<td>producer</td>
-</tr>
+	<tr>
+		<td>John Williams</td>
+		<td>composer</td>
+		<td>None</td>
+	</tr>
+	<tr>
+		<td>Mark Hamill</td>
+		<td>actor</td>
+		<td>None</td>
+	</tr>
+	<tr>
+		<td>Harrison Ford</td>
+		<td>actor</td>
+		<td>None</td>
+	</tr>
+	<tr>
+		<td>Carrie Fisher</td>
+		<td>actress</td>
+		<td>None</td>
+	</tr>
+	<tr>
+		<td>Billy Dee Williams</td>
+		<td>actor</td>
+		<td>None</td>
+	</tr>
+	<tr>
+		<td>Richard Marquand</td>
+		<td>director</td>
+		<td>None</td>
+	</tr>
+	<tr>
+		<td>Lawrence Kasdan</td>
+		<td>writer</td>
+		<td>screenplay by</td>
+	</tr>
+	<tr>
+		<td>George Lucas</td>
+		<td>writer</td>
+		<td>screenplay by</td>
+	</tr>
+	<tr>
+		<td>Howard G. Kazanjian</td>
+		<td>producer</td>
+		<td>producer</td>
+	</tr>
+	<tr>
+		<td>Rick McCallum</td>
+		<td>producer</td>
+		<td>producer</td>
+	</tr>
 </table>
 </body></html>

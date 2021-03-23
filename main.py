@@ -23,19 +23,14 @@ def stockage_question(path, file):
     while i < len(contenu): # Tant que l'on n'as pas vus l'intégralité des lignes du fichier
         if contenu[i][0] == "#": # si la ligne choisit est une question
             question = contenu[i][1:] # On choisit cette ligne comme étant une question
-            sql_file = contenu[i-1] # On choisit la ligne précédente comme étant le fichier répondant à cette question ( ici les .sql)
+            sql_file = contenu[i-1][:-1] # On choisit la ligne précédente comme étant le fichier répondant à cette question ( ici les .sql)
 
-            # On détermine le numero de la question
-            numero = ""
-            k = 0
-            while question[k] in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]: # on détermine le numero de la question
-                numero += question[k]
-                k += 1
+            numero = read.devine_numero(question)[0] # On détermine le numero de la question, le [0] est là car la fonction renvoie une liste, le premier numero touvé est donc celui de la question
 
             # On détermine la réponse à la question
             reponse = ""
             while i+2 < len(contenu) and contenu[i+2][0] != "#": # tant que l'on n'est pas juste avant la prochaine question, on est dans la réponse précédente
-                reponse += contenu[i+1] + "\n"
+                reponse += contenu[i+1] + "\n" # on ajoute donc la ligne à la réponse de la requete
                 i += 1
 
             requetes[int(numero)] = [question, reponse, sql_file] # On ajoute les informations prises dans le dictionnaire de stockage
@@ -52,11 +47,13 @@ def Lancement(base, requetes, config):
         requetes, une chaine de caracteres avec le chemin d'accès aux dossier contenant les requetes et le fichier de configuration
         config, une chaine de caracteres avec le nom du fichier de configuration (voir énoncé)
     """
+    # On crée les fichiers html pour l'aide et les crédits
     credit()
     aide()
 
     pprint.debuthtml("Questions :")
 
+    # On place un menu permettant l'accès aux pages html précédemment crée
     print('<menu type="toolbar">')
     print('<menu label="A propos">')
     print('<button onclick="window.open(%s)"> %s </button>' % ("'data/credits.html'", "Crédits"))
@@ -68,24 +65,20 @@ def Lancement(base, requetes, config):
 
     pprint.finhtml()
 
-def question(requetes, config, base, dictionnaire = None):
+def question(requetes, config, base):
     """
     fonction permettant d'afficher les questions dans une fenetre tkinter
     parametres:
-        root, une fenetre tkinter dans laquelle on affiche les questions
         requetes, une chaine de caracteres avec le chemin d'accès aux requetes et au fichier de configuration
         config, une chaine de caracteres indiquant le nom du fichier de configuration
         base, une chaine de caracteres contenant le chemin d'accès vers la base de données
-        dictionnaire, optionnel, un dictionnaire indiquant les informations des requetes comme suit : {indice de la question : [question, reponse, fichier sql associé], ... }
     affiche les questions dans le fenetre tkinter, la selection de la question entraine l'affichage de la réponse dans une autre fenetre tkinter
     """
+    dictionnaire = stockage_question(requetes, config) # On stocke toutes les informations contenu dans le fichier de configuration
 
-    if dictionnaire is None:
-        dictionnaire = stockage_question(requetes, config) # On stocke toutes les informations contenu dans le fichier de configuration
+    pprint.affichage_question_html(dictionnaire, base) # On affiche les boutons dans la page
 
-    pprint.affichage_question_html(dictionnaire, base)
-
-    pprint.affichage_question_html(dictionnaire, base, True)
+    pprint.affichage_question_html(dictionnaire, base, True) # On crée les fichiers html auquel sont rattachés les boutons
 
 
 def caracteres(texte):
@@ -107,7 +100,7 @@ def len_maximum(tab):
     """
     fonction parmettant de connaître la longueur maximale des éléments d'un tableau
     parametres:
-               tab, une liste d'éléments
+        tab, une liste d'éléments
     renvoi un entier étant la longueur maximale des elements du tableau
     """
     maxi = 0
@@ -120,16 +113,16 @@ def len_maximum(tab):
 
 def aide():
     """
-    fonction permettant d'effectuer l'affichage de l'aide
-    renvoie
+    fonction permettant d'actualiser/crée un fichier html contenant l'aide
     """
     if read.fichier_existe("data/aide.html"):
         read.suppr_fichier("data/aide.html", False)
 
     texte = "<html><head>\nAide\n</head><body><p>\n"
 
-    aide_contenu = read.lire_fichier("README.md", True)
-    for i in aide_contenu:
+    # on met le contenu du fichier README.md dans la page
+    contenu = read.lire_fichier("README.md", True)
+    for i in contenu:
         texte += "</br>\n"
         texte += i + "\n"
 
@@ -140,16 +133,16 @@ def aide():
 
 def credit():
     """
-    fonction permettant d'effectuer l'affichage des crédits
-    renvoie
+    fonction permettant d'actualiser/crée un fichier html contenant les crédits
     """
     if read.fichier_existe("data/credits.html"):
         read.suppr_fichier("data/credits.html", False)
 
     texte = "<html><head>\nCrédits\n</head><body><p>\n"
 
-    aide_contenu = read.lire_fichier("credits.md", True)
-    for i in aide_contenu:
+    # on met le contenu du fichier README.md dans la page
+    contenu = read.lire_fichier("credits.md", True)
+    for i in contenu:
         texte += "</br>\n"
         texte += i + "\n"
 
@@ -162,20 +155,17 @@ def test():
     fonction permettant de tester l'intégralité des requêtes recensées dans alire.md
     renvoie un print indiquant les résultats des tests
     """
-    tout_juste = True
     liste_echec = []
 
     dictionnaire = stockage_question("requetes", "alire.md")
 
     for choix in dictionnaire.keys(): # Pour chaque éléments enregistrés dans le dictionnaire
-
         try: # On teste si on peut en effectuer la requete
             resultat = read.execute_sql_file("requetes", dictionnaire[choix][2], "imdb.db")
         except: # sinon cela signifie que tous n'est pas juste et on ajoute le numero de la requetes dans les echec
-            tout_juste = False
             liste_echec += [choix]
 
-    if tout_juste == True:
+    if liste_echec == []:
         print("Tous les tests ont été passé avec succès")
     else:
         print("Liste des tests ayant échoué : ", liste_echec)

@@ -1,3 +1,8 @@
+#!"C:\Winpython\python-3.8.5.amd64\python.exe"
+
+# module qui gère l'aspect html du programme principal
+# fait par Didier Mathias
+
 # l'importation de ces modules dépend de la façon dans est exécuté le fichier
 try:
     import module_lecture_fichier as read
@@ -41,14 +46,15 @@ def tableau_html(tableau, debut = True, fin = True):
 
     print("<style> table, th, td {border: 1px solid black;  padding: 5px; border-collapse: collapse;} </style> ")
 
-    table = "<table>\n"
+    print("<table>")
 
     for ligne in tableau:
-        table += "<tr>\n"
+        print("<tr>")
         for colonne in ligne:
-            table += "<td>" + str(colonne) + "</td>\n"
-        table += "</tr>\n"
-    table +="</table>\n"
+            print("<td>" + str(colonne) + "</td>")
+        print("</tr>")
+
+    print("</table>")
 
     print(table)
 
@@ -100,17 +106,17 @@ def affichage_question_html(stockage, base, creation_dossier = False):
 
             page += "-" * len(question) + "\n<br><br>\n"
 
-            tableau_page = read.execute_sql_file("requetes", stockage[numero][2], base) # cette ligne prend trop de temps à s'executer pour certaines requetes
+            tableau_page = read.execute_sql_file("requetes", stockage[numero][2], base) # cette ligne prend du temps à s'executer pour certaines requetes
 
             # on cree un tableau qui acceuillera la reponse
             page += "<style> table, th, td {border: 1px solid black;  padding: 5px; border-collapse: collapse;} </style>\n"
 
             table = "<table>\n"
             for ligne in tableau_page:
-                table += "<tr>\n"
+                table += "\t<tr>\n"
                 for colonne in ligne:
-                    table += "<td>" + str(colonne) + "</td>\n"
-                table += "</tr>\n"
+                    table += "\t\t<td>" + str(colonne) + "</td>\n"
+                table += "\t</tr>\n"
             table +="</table>\n"
 
             page += table

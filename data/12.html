@@ -1,25 +1,25 @@
 <html><head>
-12.Quelle sont les 5 comedies romantiques les mieux notees ?
+12.Quelle sont les 5 comedies romantiques les mieux notees ?
 </head><body>
 <br><br>
-SELECT originalTitle<br>FROM title_basics<br>JOIN title_ratings <br>ON title_ratings.tconst = title_basics.tconst <br>WHERE genres <br>LIKE "%Romance%"<br>AND genres <br>LIKE "%Comedy%"<br>ORDER BY averageRating <br>DESC<br>LIMIT 5<br><br>------------------------------------------------------------
+SELECT originalTitle<br>FROM title_basics<br>JOIN title_ratings <br>ON title_ratings.tconst = title_basics.tconst <br>WHERE genres <br>LIKE "%Romance%"<br>AND genres <br>LIKE "%Comedy%"<br>ORDER BY averageRating <br>DESC<br>LIMIT 5<br><br><br>-------------------------------------------------------------
 <br><br>
 <style> table, th, td {border: 1px solid black;  padding: 5px; border-collapse: collapse;} </style>
 <table>
-<tr>
-<td>Super Bowl Sunday</td>
-</tr>
-<tr>
-<td>The Last One</td>
-</tr>
-<tr>
-<td>The One Where Everybody Finds Out</td>
-</tr>
-<tr>
-<td>The Cabin</td>
-</tr>
-<tr>
-<td>The Stockholm Syndrome</td>
-</tr>
+	<tr>
+		<td>Super Bowl Sunday</td>
+	</tr>
+	<tr>
+		<td>The Last One</td>
+	</tr>
+	<tr>
+		<td>The One Where Everybody Finds Out</td>
+	</tr>
+	<tr>
+		<td>The Cabin</td>
+	</tr>
+	<tr>
+		<td>The Stockholm Syndrome</td>
+	</tr>
 </table>
 </body></html>

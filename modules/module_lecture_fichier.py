@@ -1,14 +1,11 @@
 #!"C:\Winpython\python-3.8.5.amd64\python.exe"
 
-# importation des modules necessaire
+# module permettant la lecture, la modification et l'analyse de fichier/répertoire
+# fait par Didier Mathias
+
+# importation des modules necessaires
 import os
 import os.path
-
-# l'importation de ce module change selon l'utilisation du fichier (directe ou non)
-try:
-    import module_database as Database
-except:
-    from modules import module_database as Database
 
 def devine_numero(texte):
         """
@@ -20,16 +17,16 @@ def devine_numero(texte):
         liste_numero = []
 
         i = 0
-        while i < len(texte):
+        while i < len(texte): # tant que toute la chaîne n'as pas été parcouru
 
             nbr = ""
-            while texte[i] in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
-                nbr += texte[i]
+            while texte[i] in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]: # tant que le caractere observer est un chiffre
+                nbr += texte[i] # on ajoute le caractere au nombre
                 i += 1
 
-            if nbr != "":
-                nbr = int(nbr)
-                liste_numero += [nbr]
+            if nbr != "": # Si on a trouvé un nombre
+                nbr = int(nbr) # on le transforme en entier
+                liste_numero += [nbr] # on ajoute le nombre entier final à la liste des nombres trouvés
 
             i += 1
         return liste_numero
@@ -38,7 +35,7 @@ def fichier_existe(path):
     """
     fonction permettant de connaitre l'existence d'un répertoire ou d'un fichier
     parametres:
-               path, le chemin vers le répertoire souhaité sous forme de chaine de caracteres
+        path, le chemin vers le répertoire souhaité sous forme de chaine de caracteres
     renvoie un booléen, True si le répertoire/fichier existe et False sinon
     """
     if "." in path and os.path.isfile(path): # On dit que s'il y a un point dans le chemin, alors c'est un fichier que l'on recherche
@@ -52,8 +49,8 @@ def lire_fichier(file, ligne_vide = False):
     """
     fonction qui lit un fichier choisit
     parametres:
-               file, une chaine de caracteres contenant le chemin vers le fichier à lire
-               ligne_vide, optionnel, un booléen indiquant si les lignes vides représenté par "" doivent être garder, par défaut False
+        file, une chaine de caracteres contenant le chemin vers le fichier à lire
+        ligne_vide, optionnel, un booléen indiquant si les lignes vides représenté par "" doivent être garder, par défaut False
     renvoie une liste de chaine de caracteres, chaque élément est une ligne du fichier
     """
     if fichier_existe(file): # on vérifie que le fichier existe
@@ -69,17 +66,25 @@ def lire_fichier(file, ligne_vide = False):
                     f = f[:l] + f[l+1:]
                 else:
                     l += 1
+
         return f
 
 def execute_sql_file(path, file, db):
     """
     fonction permettant d'exécuter une requete sql dans une base de données, ici, on lit le fichier puis on l'éxécute
     parametres:
-               path, une chaine de caracteres contenant le chemin d'accès au fichier avec le fichier sql
-               file, une chaine de caracteres contenant le nom du fichier à exécuter
-               db, une chaine de caracteres avec le chemin entier vers la base de données dans laquelle exécuter la requete
+        path, une chaine de caracteres contenant le chemin d'accès au fichier avec le fichier sql
+        file, une chaine de caracteres contenant le nom du fichier à exécuter
+        db, une chaine de caracteres avec le chemin entier vers la base de données dans laquelle exécuter la requete
     renvoie les résultats de la requetes sous forme de liste
     """
+    # l'importation de ce module change selon l'utilisation du fichier (directe ou non)
+    try:
+        import module_database as Database
+    except:
+        from modules import module_database as Database
+
+
     sql_liste = lire_fichier(path + "/" + file) # on lit le fichier contenant le code SQL
 
     # On établit la requête sql dans une seule ligne/chaine de caractères
@@ -111,12 +116,14 @@ def suppr_lignes(file, *i_lines):
 
         with open(file) as f:
 
+            # on enregistre que les lignes que l'ont souhaite gardé
             i = 1
             for line in f.readlines():
                 if i not in i_lines:
                     save.append(line)
                 i += 1
 
+        # on réecrit le fichier avec seulement les lignes enregistrées
         with open(file, "w") as f:
             f.writelines(save)
 
@@ -127,7 +134,7 @@ def suppr_fichier(file, verif = True):
         file, une chaine de caracteres avec le chemin d'accès au fichier ou au répertoire
         verif, optionnel, un booléen indiquant si le programme doit demander la confirmation de l'utilisateur ou non, par défaut sur True
     """
-    if fichier_existe(file) and "." in file:
+    if fichier_existe(file) and "." in file: # on vérifie que le fichier existe
         kill = True
         if verif:
             from tkinter import messagebox
@@ -202,7 +209,7 @@ def suppr_repertoire(path):
     parametres:
         path, une chaine de caracteres indiquant le chemin vers le repertoire à supprimer
     """
-    import shutil as sh
+    import shutil as sh # ce module sert à supprimer tous le contenu du répertoire avant de la supprimer
     sh.rmtree(path)
     os.rmdir(path)
 

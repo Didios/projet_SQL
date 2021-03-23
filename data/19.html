@@ -1,122 +1,122 @@
 <html><head>
-19.Quels sont les acteurs ayant joue le role de James Bond, et dans quels films ?
+19.Quels sont les acteurs ayant joue le role de James Bond, et dans quels films ?
 </head><body>
 <br><br>
-SELECT primaryName, originalTitle<br>FROM name_basics, title_basics<br>JOIN title_principals <br>ON title_principals.tconst = title_basics.tconst <br>WHERE title_principals.nconst = name_basics.nconst <br>AND characters <br>LIKE "%James Bond%"<br>AND category = "actor"<br>AND titleType = "movie"<br><br>---------------------------------------------------------------------------------
+SELECT primaryName, originalTitle<br>FROM name_basics, title_basics<br>JOIN title_principals <br>ON title_principals.tconst = title_basics.tconst <br>WHERE title_principals.nconst = name_basics.nconst <br>AND characters <br>LIKE "%James Bond%"<br>AND category = "actor"<br>AND titleType = "movie"<br><br><br>----------------------------------------------------------------------------------
 <br><br>
 <style> table, th, td {border: 1px solid black;  padding: 5px; border-collapse: collapse;} </style>
 <table>
-<tr>
-<td>Sean Connery</td>
-<td>Dr. No</td>
-</tr>
-<tr>
-<td>Sean Connery</td>
-<td>From Russia with Love</td>
-</tr>
-<tr>
-<td>Sean Connery</td>
-<td>Goldfinger</td>
-</tr>
-<tr>
-<td>Sean Connery</td>
-<td>Thunderball</td>
-</tr>
-<tr>
-<td>David Niven</td>
-<td>Casino Royale</td>
-</tr>
-<tr>
-<td>Peter Sellers</td>
-<td>Casino Royale</td>
-</tr>
-<tr>
-<td>Sean Connery</td>
-<td>You Only Live Twice</td>
-</tr>
-<tr>
-<td>George Lazenby</td>
-<td>On Her Majesty's Secret Service</td>
-</tr>
-<tr>
-<td>Sean Connery</td>
-<td>Diamonds Are Forever</td>
-</tr>
-<tr>
-<td>Roger Moore</td>
-<td>Live and Let Die</td>
-</tr>
-<tr>
-<td>Roger Moore</td>
-<td>The Man with the Golden Gun</td>
-</tr>
-<tr>
-<td>Roger Moore</td>
-<td>The Spy Who Loved Me</td>
-</tr>
-<tr>
-<td>Roger Moore</td>
-<td>Moonraker</td>
-</tr>
-<tr>
-<td>Roger Moore</td>
-<td>For Your Eyes Only</td>
-</tr>
-<tr>
-<td>Sean Connery</td>
-<td>Never Say Never Again</td>
-</tr>
-<tr>
-<td>Roger Moore</td>
-<td>Octopussy</td>
-</tr>
-<tr>
-<td>Roger Moore</td>
-<td>A View to a Kill</td>
-</tr>
-<tr>
-<td>Timothy Dalton</td>
-<td>The Living Daylights</td>
-</tr>
-<tr>
-<td>Timothy Dalton</td>
-<td>Licence to Kill</td>
-</tr>
-<tr>
-<td>Pierce Brosnan</td>
-<td>GoldenEye</td>
-</tr>
-<tr>
-<td>Pierce Brosnan</td>
-<td>Tomorrow Never Dies</td>
-</tr>
-<tr>
-<td>Pierce Brosnan</td>
-<td>The World Is Not Enough</td>
-</tr>
-<tr>
-<td>Pierce Brosnan</td>
-<td>Die Another Day</td>
-</tr>
-<tr>
-<td>Eric Tsang</td>
-<td>Gam gai</td>
-</tr>
-<tr>
-<td>Daniel Craig</td>
-<td>Casino Royale</td>
-</tr>
-<tr>
-<td>Daniel Craig</td>
-<td>Quantum of Solace</td>
-</tr>
-<tr>
-<td>Daniel Craig</td>
-<td>Skyfall</td>
-</tr>
-<tr>
-<td>Daniel Craig</td>
-<td>Spectre</td>
-</tr>
+	<tr>
+		<td>Sean Connery</td>
+		<td>Dr. No</td>
+	</tr>
+	<tr>
+		<td>Sean Connery</td>
+		<td>From Russia with Love</td>
+	</tr>
+	<tr>
+		<td>Sean Connery</td>
+		<td>Goldfinger</td>
+	</tr>
+	<tr>
+		<td>Sean Connery</td>
+		<td>Thunderball</td>
+	</tr>
+	<tr>
+		<td>David Niven</td>
+		<td>Casino Royale</td>
+	</tr>
+	<tr>
+		<td>Peter Sellers</td>
+		<td>Casino Royale</td>
+	</tr>
+	<tr>
+		<td>Sean Connery</td>
+		<td>You Only Live Twice</td>
+	</tr>
+	<tr>
+		<td>George Lazenby</td>
+		<td>On Her Majesty's Secret Service</td>
+	</tr>
+	<tr>
+		<td>Sean Connery</td>
+		<td>Diamonds Are Forever</td>
+	</tr>
+	<tr>
+		<td>Roger Moore</td>
+		<td>Live and Let Die</td>
+	</tr>
+	<tr>
+		<td>Roger Moore</td>
+		<td>The Man with the Golden Gun</td>
+	</tr>
+	<tr>
+		<td>Roger Moore</td>
+		<td>The Spy Who Loved Me</td>
+	</tr>
+	<tr>
+		<td>Roger Moore</td>
+		<td>Moonraker</td>
+	</tr>
+	<tr>
+		<td>Roger Moore</td>
+		<td>For Your Eyes Only</td>
+	</tr>
+	<tr>
+		<td>Sean Connery</td>
+		<td>Never Say Never Again</td>
+	</tr>
+	<tr>
+		<td>Roger Moore</td>
+		<td>Octopussy</td>
+	</tr>
+	<tr>
+		<td>Roger Moore</td>
+		<td>A View to a Kill</td>
+	</tr>
+	<tr>
+		<td>Timothy Dalton</td>
+		<td>The Living Daylights</td>
+	</tr>
+	<tr>
+		<td>Timothy Dalton</td>
+		<td>Licence to Kill</td>
+	</tr>
+	<tr>
+		<td>Pierce Brosnan</td>
+		<td>GoldenEye</td>
+	</tr>
+	<tr>
+		<td>Pierce Brosnan</td>
+		<td>Tomorrow Never Dies</td>
+	</tr>
+	<tr>
+		<td>Pierce Brosnan</td>
+		<td>The World Is Not Enough</td>
+	</tr>
+	<tr>
+		<td>Pierce Brosnan</td>
+		<td>Die Another Day</td>
+	</tr>
+	<tr>
+		<td>Eric Tsang</td>
+		<td>Gam gai</td>
+	</tr>
+	<tr>
+		<td>Daniel Craig</td>
+		<td>Casino Royale</td>
+	</tr>
+	<tr>
+		<td>Daniel Craig</td>
+		<td>Quantum of Solace</td>
+	</tr>
+	<tr>
+		<td>Daniel Craig</td>
+		<td>Skyfall</td>
+	</tr>
+	<tr>
+		<td>Daniel Craig</td>
+		<td>Spectre</td>
+	</tr>
 </table>
 </body></html>

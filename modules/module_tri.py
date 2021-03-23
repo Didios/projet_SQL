@@ -1,17 +1,13 @@
 #!"C:\Winpython\python-3.8.5.amd64\python.exe"
 
-'''
-Remarque
-Le sobriquet « tri bulles » vient d’une interprétation imagée selon laquelle l’algorithme
-fait « remonter » petit à petit les éléments « l´egers » vers la « surface ».
-
-'''
+# module contenant différentes méthode de tris
+# fait par Didier Mathias
 
 def tri_bulles(T):
     """
     fonction permettant de trier un tableau de valeur avec le tri a bulles
     parametres:
-               T un tableau de valeur a trier
+        T un tableau de valeur a trier
     Renvoie le tableau trier
     """
     assert type(T) == list, "On ne trie que des tableaux/listes" #On verifie que T est une liste
@@ -28,7 +24,7 @@ def tri_bulles_V2(T):
     """
     fonction permettant de trier un tableau de valeur avec le tri a bulles
     parametres:
-               T un tableau de valeur a trier
+        T un tableau de valeur a trier
     Renvoie le tableau de valeur trier
     """
     assert type(T) == list, "On ne trie que des tableaux/listes" #On verifie que T est une liste
@@ -46,7 +42,7 @@ def tri_selection(T):
     """
     fonction permettant de trier un tableau de valeur avec le tri par selection
     parametres:
-               T un tableau de valeur a trier
+        T un tableau de valeur a trier
     Renvoie le tableau de valeur trier
     """
     def indice_min(T, dbt, fn):
@@ -54,9 +50,9 @@ def tri_selection(T):
         sous-fonction permettant de trouver l'indice de la valeur minimale dans un tableau avec un intervalle donné
         a savoir que les deux valeurs délimitant l'intervalle sont comprises
         parametres:
-                    T un tableau de valeur
-                    dbt un entier indiquant le début de l'intervalle
-                    fn un entier indiquant la fin de l'intervalle
+            T un tableau de valeur
+            dbt un entier indiquant le début de l'intervalle
+            fn un entier indiquant la fin de l'intervalle
         Renvoie l'indice de la valeur minimum de l'intervalle
         """
         indice = dbt
@@ -79,7 +75,7 @@ def tri_insertion(T):
     """
     fonction permettant de trier un tableau de valeur avec le tri par insertion
     parametres:
-               T un tableau de valeur a trier
+        T un tableau de valeur a trier
     Renvoie le tableau de valeur trier
     """
     assert type(T) == list, "On ne trie que des tableaux/listes" #On verifie que T est une liste
@@ -94,15 +90,15 @@ def tri_fusion(T):
     """
     fonction permettant de trier un tableau de valeur avec le tri fusion
     parametres:
-               T un tableau de valeur a trier
+        T un tableau de valeur a trier
     Renvoie le tableau de valeur trier
     """
     def fusion(T1, T2):
         """
         sous-fonction permettant de fusionner 2 tableaux trier en un tableau trier
         parametres:
-                    T1 un tableau de valeur trié
-                    T2 un tableau de valeur trié
+            T1 un tableau de valeur trié
+            T2 un tableau de valeur trié
         Renvoie un tableau de valeur trié contenant T1 et T2
         """
         T = []
@@ -154,7 +150,7 @@ def tri_rapide(T):
     """
     fonction permettant de trier un tableau de valeur avec le tri rapide
     parametres:
-               T un tableau de valeur a trier
+        T un tableau de valeur a trier
     Renvoie le tableau de valeur trier
     """
     assert type(T) == list, "On ne trie que des tableaux/listes" #On verifie que T est une liste
@@ -205,7 +201,7 @@ def test_aleatoire(longueur = False):
     """
     fonction de test des differents tri de manière aléatoire, que se soit le nombre de valeur ou les valeurs elle même
     parametres:
-                longueur un parametres facultatif permettant de déterminer le nombre de valeur du tableau
+        longueur un parametres facultatif permettant de déterminer le nombre de valeur du tableau
     """
     from random import randint
     T = []
