@@ -1,3 +1,5 @@
+#!"C:\Winpython\python-3.8.5.amd64\python.exe"
+
 # importation des modules necessaire
 import os
 import os.path
@@ -55,7 +57,7 @@ def lire_fichier(file, ligne_vide = False):
     renvoie une liste de chaine de caracteres, chaque élément est une ligne du fichier
     """
     if fichier_existe(file): # on vérifie que le fichier existe
-        import codecs # ce module permet d'afficher les caracteres spéciaux en utf-8
+        import codecs # ce module permet la retranscription des caractères spéciaux au format utf-8
         with codecs.open(file, "r", "utf-8") as f: # with permet de gerer l'ouverture et la fermeture automatique du fichier
             f = [x.rstrip("\n") for x in f.readlines()] # On enlève les sauts de ligne et les retours à la ligne, inutile puisque chaque ligne est un éléments du tableau
 
@@ -185,3 +187,30 @@ def remplacer_ligne(path, file, numero, texte):
 
     add_ligne(path, file, nouveau)
 
+def lister_fichier(path):
+    """
+    fonction permettant de lister tous les éléments d'un répertoire donnée
+    parametres:
+        path, une chaine de caracteres indiquant le chemin vers le repertoire à lister
+    renvoie une liste avec le nom de tous les éléments présent
+    """
+    return os.listdir(path)
+
+def suppr_repertoire(path):
+    """
+    fonction permettant de supprimer un répertoire
+    parametres:
+        path, une chaine de caracteres indiquant le chemin vers le repertoire à supprimer
+    """
+    import shutil as sh
+    sh.rmtree(path)
+    os.rmdir(path)
+
+def add_repertoire(path, name):
+    """
+    fonction permettant de supprimer un répertoire
+    parametres:
+        path, une chaine de caracteres indiquant le chemin vers le repertoire parent
+        name, une chaine de caracteres avec le nom du nouveau repertoire
+    """
+    os.mkdir(path + "/" + name)

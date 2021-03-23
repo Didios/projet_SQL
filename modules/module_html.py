@@ -1,10 +1,8 @@
 # l'importation de ces modules dépend de la façon dans est exécuté le fichier
 try:
-    import module_affichage as show
     import module_lecture_fichier as read
     import module_tri as tris
 except:
-    from modules import module_affichage as show
     from modules import module_lecture_fichier as read
     from modules import module_tri as tris
 
