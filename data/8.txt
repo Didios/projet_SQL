@@ -1,0 +1,16 @@
+08.Quel est le film ayant recueilli le plus de votes ?
+
+SELECT originalTitle
+FROM title_basics
+JOIN title_ratings 
+ON title_ratings.tconst = title_basics.tconst 
+WHERE titleType = "movie"
+ORDER BY numVotes 
+DESC
+LIMIT 1
+
+------------------------------------------------------
+
++-------------------------+
+|The Shawshank Redemption |
++-------------------------+

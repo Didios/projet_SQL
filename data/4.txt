@@ -1,0 +1,13 @@
+04.En quelle annee est sortie le premier film Superman ?
+
+SELECT
+MIN(startYear)
+FROM title_basics
+WHERE originalTitle = "Superman"
+AND titleType = "movie"
+
+--------------------------------------------------------
+
++-----+
+|1948 |
++-----+

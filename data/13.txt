@@ -1,0 +1,37 @@
+13.Quels sont les 10 films d animation ayant recu plus de 1000 votes les mieux notes ?
+
+SELECT originalTitle
+FROM title_basics
+JOIN title_ratings 
+ON title_ratings.tconst = title_basics.tconst 
+WHERE genres 
+LIKE "%Animation%"
+AND numVotes > 1000
+AND titleType = "movie"
+ORDER BY averageRating 
+DESC
+LIMIT 10
+
+--------------------------------------------------------------------------------------
+
++-------------------------------------------------+
+|30 Years and 15 Minutes                          |
++-------------------------------------------------+
+|Ramayana: The Legend of Prince Rama              |
++-------------------------------------------------+
+|Sen to Chihiro no kamikakushi                    |
++-------------------------------------------------+
+|Flåklypa Grand Prix                              |
++-------------------------------------------------+
+|Hotaru no haka                                   |
++-------------------------------------------------+
+|The Lion King                                    |
++-------------------------------------------------+
+|Primal: Tales of Savagery                        |
++-------------------------------------------------+
+|Ostrov sokrovishch. Sokrovishcha kapitana Flinta |
++-------------------------------------------------+
+|Mononoke-hime                                    |
++-------------------------------------------------+
+|Ostrov Sokrovishch                               |
++-------------------------------------------------+

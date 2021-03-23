@@ -1,0 +1,33 @@
+10.Quelles sont les noms et roles (category et job) des personnes intervenant dans la production du film Return of the Jedi ?
+
+SELECT primaryName, category, job 
+FROM name_basics, title_principals, title_basics
+WHERE name_basics.nconst = title_principals.nconst 
+AND title_principals.tconst = title_basics.tconst 
+AND primaryTitle 
+LIKE "%Return of the Jedi%"
+AND titleType = "movie"
+
+-----------------------------------------------------------------------------------------------------------------------------
+
++--------------------+---------+--------------+
+|John Williams       |composer |None          |
++--------------------+---------+--------------+
+|Mark Hamill         |actor    |None          |
++--------------------+---------+--------------+
+|Harrison Ford       |actor    |None          |
++--------------------+---------+--------------+
+|Carrie Fisher       |actress  |None          |
++--------------------+---------+--------------+
+|Billy Dee Williams  |actor    |None          |
++--------------------+---------+--------------+
+|Richard Marquand    |director |None          |
++--------------------+---------+--------------+
+|Lawrence Kasdan     |writer   |screenplay by |
++--------------------+---------+--------------+
+|George Lucas        |writer   |screenplay by |
++--------------------+---------+--------------+
+|Howard G. Kazanjian |producer |producer      |
++--------------------+---------+--------------+
+|Rick McCallum       |producer |producer      |
++--------------------+---------+--------------+

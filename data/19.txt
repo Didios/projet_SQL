@@ -1,0 +1,71 @@
+19.Quels sont les acteurs ayant joue le role de James Bond, et dans quels films ?
+
+SELECT primaryName, originalTitle
+FROM name_basics, title_basics
+JOIN title_principals 
+ON title_principals.tconst = title_basics.tconst 
+WHERE title_principals.nconst = name_basics.nconst 
+AND characters 
+LIKE "%James Bond%"
+AND category = "actor"
+AND titleType = "movie"
+
+---------------------------------------------------------------------------------
+
++---------------+--------------------------------+
+|Sean Connery   |Dr. No                          |
++---------------+--------------------------------+
+|Sean Connery   |From Russia with Love           |
++---------------+--------------------------------+
+|Sean Connery   |Goldfinger                      |
++---------------+--------------------------------+
+|Sean Connery   |Thunderball                     |
++---------------+--------------------------------+
+|David Niven    |Casino Royale                   |
++---------------+--------------------------------+
+|Peter Sellers  |Casino Royale                   |
++---------------+--------------------------------+
+|Sean Connery   |You Only Live Twice             |
++---------------+--------------------------------+
+|George Lazenby |On Her Majesty's Secret Service |
++---------------+--------------------------------+
+|Sean Connery   |Diamonds Are Forever            |
++---------------+--------------------------------+
+|Roger Moore    |Live and Let Die                |
++---------------+--------------------------------+
+|Roger Moore    |The Man with the Golden Gun     |
++---------------+--------------------------------+
+|Roger Moore    |The Spy Who Loved Me            |
++---------------+--------------------------------+
+|Roger Moore    |Moonraker                       |
++---------------+--------------------------------+
+|Roger Moore    |For Your Eyes Only              |
++---------------+--------------------------------+
+|Sean Connery   |Never Say Never Again           |
++---------------+--------------------------------+
+|Roger Moore    |Octopussy                       |
++---------------+--------------------------------+
+|Roger Moore    |A View to a Kill                |
++---------------+--------------------------------+
+|Timothy Dalton |The Living Daylights            |
++---------------+--------------------------------+
+|Timothy Dalton |Licence to Kill                 |
++---------------+--------------------------------+
+|Pierce Brosnan |GoldenEye                       |
++---------------+--------------------------------+
+|Pierce Brosnan |Tomorrow Never Dies             |
++---------------+--------------------------------+
+|Pierce Brosnan |The World Is Not Enough         |
++---------------+--------------------------------+
+|Pierce Brosnan |Die Another Day                 |
++---------------+--------------------------------+
+|Eric Tsang     |Gam gai                         |
++---------------+--------------------------------+
+|Daniel Craig   |Casino Royale                   |
++---------------+--------------------------------+
+|Daniel Craig   |Quantum of Solace               |
++---------------+--------------------------------+
+|Daniel Craig   |Skyfall                         |
++---------------+--------------------------------+
+|Daniel Craig   |Spectre                         |
++---------------+--------------------------------+

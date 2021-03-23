@@ -1,0 +1,13 @@
+14.Combien de films durent plus de 3 heures ?
+
+SELECT
+COUNT(originalTitle)
+FROM title_basics
+WHERE runtimeMinutes > 3 * 60
+AND titleType = "movie"
+
+---------------------------------------------
+
++----+
+|289 |
++----+

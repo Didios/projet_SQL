@@ -1,0 +1,27 @@
+12.Quelle sont les 5 comedies romantiques les mieux notees ?
+
+SELECT originalTitle
+FROM title_basics
+JOIN title_ratings 
+ON title_ratings.tconst = title_basics.tconst 
+WHERE genres 
+LIKE "%Romance%"
+AND genres 
+LIKE "%Comedy%"
+ORDER BY averageRating 
+DESC
+LIMIT 5
+
+------------------------------------------------------------
+
++----------------------------------+
+|Super Bowl Sunday                 |
++----------------------------------+
+|The Last One                      |
++----------------------------------+
+|The One Where Everybody Finds Out |
++----------------------------------+
+|The Cabin                         |
++----------------------------------+
+|The Stockholm Syndrome            |
++----------------------------------+

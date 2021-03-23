@@ -1,0 +1,10 @@
+02.Combien y a-t-il de titres dans cette base de donnees ?
+
+SELECT
+COUNT(primaryTitle)
+
+----------------------------------------------------------
+
++------+
+|69676 |
++------+

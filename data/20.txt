@@ -1,0 +1,30 @@
+20.Quel sont les realisateurs ayant fait les cinq film les mieux notes ? Indiquer les noms des films correspondants.  
+
+SELECT primaryName, primaryTitle
+FROM name_basics, title_basics
+JOIN title_principals 
+ON title_principals.nconst = name_basics.nconst
+WHERE title_principals.tconst = title_basics.tconst
+AND category = "director"
+AND title_basics.tconst IN(SELECT title_basics.tconst
+					FROM title_basics
+					JOIN title_ratings 
+					ON title_ratings.tconst = title_basics.tconst
+					WHERE titleType = "movie"
+					ORDER BY averageRating 
+					DESC
+					LIMIT 5)
+
+----------------------------------------------------------------------------------------------------------------------
+
++-----------------+----------------+
+|Hemanth Srinivas |Pichhodu        |
++-----------------+----------------+
+|Don Tjernagel    |The Last Regret |
++-----------------+----------------+
+|Don Tjernagel    |Red             |
++-----------------+----------------+
+|Valerio Zanoli   |Hopeful Notes   |
++-----------------+----------------+
+|Msn Surya        |Suvarna Sundari |
++-----------------+----------------+
