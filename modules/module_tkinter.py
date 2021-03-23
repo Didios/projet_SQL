@@ -1,7 +1,6 @@
-# programme réalisé par Didier Mathias en classe de Terminale B
-
 # On importe les modules necessaires
-from tkinter import Tk, Text, Listbox, Scrollbar
+import tkinter as tk
+from tkinter import messagebox
 
 # l'importation de ces modules dépend de la façon dans est exécuté le fichier
 try:
@@ -23,12 +22,12 @@ def affichage_texte_tkinter(titre, texte, taille = 100):
     affiche une fenetre tkinter
     """
     # On défini une fenetre tkinter root ainsi que son titre
-    root = Tk()
+    root = tk.Tk()
     root.title(titre)
 
     # On définit affiche qui servira à mettre le texte dans la fenetre ainsi que scroll qui permettrat de faire défiler affiche si sa taille est trop petite
-    affiche = Text(root, width = taille + 10)
-    scroll = Scrollbar(root, orient="vertical", command=affiche.yview)
+    affiche = tk.Text(root, width = taille + 10)
+    scroll = tk.Scrollbar(root, orient="vertical", command=affiche.yview)
     affiche.config(yscrollcommand=scroll.set)
 
     # On ajoute dans la zone de texte le texte que l'on doit afficher
@@ -59,22 +58,37 @@ def affichage_question_tkinter(titre, stockage, taille, base, root = None):
                    event, un évenement
         affiche une fenetre tkinter avec la reponse à la question choisit
         """
+        # sauvegarder des fichiers avec les informations des requetes en local au cas ou la base n'existe plus
+
         indice = questions.curselection()[0] # on détermine l'indice de la question choisit
         question = questions.get(indice)
         numero = read.devine_numero(question)[0] # on détermine le numero de la question
 
-        texte_entier = stockage[numero][0] + "\n\n" + stockage[numero][1] + "\n" + "-" * len(question) + "\n\n" + show.afficher_table(read.execute_sql_file("requetes", stockage[numero][2], base)) # On définit le texte à afficher dans la nouvelle fenetre en une seule ligne/chaine de caracteres
+        if not read.fichier_existe("imdb.db"): # si la base de données à été supprimé, on passe en mode local
+            if not read.fichier_existe("data/%d.txt" % numero):
+                texte_entier = "Aucune donnée existante"
+            else:
+                texte_entier = "La base de données étant indisponible, voici le résultat le plus récent :\n"
+                fichier = read.lire_fichier("data/%d.txt" % numero, True)
+                for ligne in fichier:
+                    texte_entier += ligne + "\n"
+        else:
+            texte_entier = stockage[numero][0] + "\n\n" + stockage[numero][1] + "\n" + "-" * len(question) + "\n\n" + show.afficher_table(read.execute_sql_file("requetes", stockage[numero][2], base)) # On définit le texte à afficher dans la nouvelle fenetre en une seule ligne/chaine de caracteres
+            if read.fichier_existe("data/%d.txt" % numero):
+                read.suppr_fichier("data/%d.txt" % numero, False)
+            read.add_fichier("data", "%d.txt" % numero, texte_entier)
+
         affichage_texte_tkinter("Question " + str(numero) + " :", texte_entier, max([len(t) for t in texte_entier.split("\n")])) # On affiche la réponse dans une nouvelle fenetre tkinter
 
     # On définit une fenetre ainsi que son titre
     if root is None:
-        root = Tk()
+        root = tk.Tk()
 
     root.title(titre)
 
     root.bind("<Double-Button-1>", selection) # On définit l'événement "double clic gauche" comme exécuteur de la fonction selection
 
-    questions = Listbox(root, width = taille, height = 15) # On definit une liste qui contiendrat toutes les questions
+    questions = tk.Listbox(root, width = taille, height = 15) # On definit une liste qui contiendrat toutes les questions
 
     # On ajoute chaque questions stockées dans la liste dans l'ordre croissant
     ordre_questions = [t for t in stockage.keys()]
@@ -102,5 +116,11 @@ def clean(root, *elmt):
             c.destroy()
     return root
 
-if __name__ == "__main__":
-    affichage_texte_tkinter("test", "Bonjour\nCa va ?", 7)
+def alerte(titre, texte):
+    """
+    fonction permettant d'afficher une fenêtre d'erreur
+    parametres:
+        titre, une chaine de caracteres avec le titre de l'erreur
+        texte, une chaine de caracteres avec le descriptif de l'erreur
+    """
+    messagebox.showerror(titre, texte)

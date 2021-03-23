@@ -1,5 +1,3 @@
-# programme réalisé par Didier Mathias en classe de Terminale B
-
 # importation des modules necessaire
 import os
 import os.path
@@ -57,7 +55,8 @@ def lire_fichier(file, ligne_vide = False):
     renvoie une liste de chaine de caracteres, chaque élément est une ligne du fichier
     """
     if fichier_existe(file): # on vérifie que le fichier existe
-        with open(file) as f: # with permet de gerer l'ouverture et la fermeture automatique du fichier
+        import codecs # ce module permet d'afficher les caracteres spéciaux en utf-8
+        with codecs.open(file, "r", "utf-8") as f: # with permet de gerer l'ouverture et la fermeture automatique du fichier
             f = [x.rstrip("\n") for x in f.readlines()] # On enlève les sauts de ligne et les retours à la ligne, inutile puisque chaque ligne est un éléments du tableau
 
         if not ligne_vide:
@@ -185,3 +184,4 @@ def remplacer_ligne(path, file, numero, texte):
         nouveau += i + "\n"
 
     add_ligne(path, file, nouveau)
+
