@@ -3,7 +3,8 @@ Sur une idee de M.CHOUCHI
 realiser par M.DIDIER Mathias
 eleve de Terminale au Lycee Louis Lapicque a Epinal
 
-Programmer sur Pyscripter
+Programmer sur Pyscripter 
 avec une version python 3.8.5 (64 bits)
+avec utilisation du logiciel Laragon
 
-annee 2020
+annee 2021
