@@ -7,6 +7,7 @@
 import os
 import os.path
 
+
 def devine_numero(texte):
         """
         sous-fonction permettant d'isoler les nombre présent dans une chaine de caracteres, les nombres décimaux ne sont pas compter
@@ -31,6 +32,8 @@ def devine_numero(texte):
             i += 1
         return liste_numero
 
+################################################################################
+
 def fichier_existe(path):
     """
     fonction permettant de connaitre l'existence d'un répertoire ou d'un fichier
@@ -44,6 +47,8 @@ def fichier_existe(path):
         return True
     else:
         return False
+
+############################## obtenir contenu #################################
 
 def lire_fichier(file, ligne_vide = False):
     """
@@ -69,91 +74,16 @@ def lire_fichier(file, ligne_vide = False):
 
         return f
 
-def execute_sql_file(path, file, db):
+def lister_fichier(path):
     """
-    fonction permettant d'exécuter une requete sql dans une base de données, ici, on lit le fichier puis on l'éxécute
+    fonction permettant de lister tous les éléments d'un répertoire donnée
     parametres:
-        path, une chaine de caracteres contenant le chemin d'accès au fichier avec le fichier sql
-        file, une chaine de caracteres contenant le nom du fichier à exécuter
-        db, une chaine de caracteres avec le chemin entier vers la base de données dans laquelle exécuter la requete
-    renvoie les résultats de la requetes sous forme de liste
+        path, une chaine de caracteres indiquant le chemin vers le repertoire à lister
+    renvoie une liste avec le nom de tous les éléments présent
     """
-    # l'importation de ce module change selon l'utilisation du fichier (directe ou non)
-    try:
-        import module_database as Database
-    except:
-        from modules import module_database as Database
+    return os.listdir(path)
 
-
-    sql_liste = lire_fichier(path + "/" + file) # on lit le fichier contenant le code SQL
-
-    # On établit la requête sql dans une seule ligne/chaine de caractères
-    sql = ""
-    for i in range(len(sql_liste)):
-        sql += sql_liste[i] + " "
-
-    try: # Résolution du probleme "sqlite3.OperationalError: no such table:", si on y arrive pas avec le module dédié
-        base = Database.database(db)
-        result = base.execute(sql)
-    except: # On l'effectue de manière directe
-        import sqlite3
-        conn = sqlite3.connect(db)
-        cur = conn.cursor()
-        result = cur.execute(sql).fetchall()
-        conn.close()
-
-    return result
-
-def suppr_lignes(file, *i_lines):
-    """
-    fonction permettant de supprimer les lignes d'un document grâce à leurs indices
-    parametres:
-        file, une chaine de caracteres indiquant le chemin vers le fichier
-        i_lines, des nombres entier étant les indices des lignes à supprimer (la première ligne à pour indice 1)
-    """
-    if fichier_existe(file):
-        save = []
-
-        with open(file) as f:
-
-            # on enregistre que les lignes que l'ont souhaite gardé
-            i = 1
-            for line in f.readlines():
-                if i not in i_lines:
-                    save.append(line)
-                i += 1
-
-        # on réecrit le fichier avec seulement les lignes enregistrées
-        with open(file, "w") as f:
-            f.writelines(save)
-
-def suppr_fichier(file, verif = True):
-    """
-    fonction permettant de supprimer un fichier
-    parametres:
-        file, une chaine de caracteres avec le chemin d'accès au fichier ou au répertoire
-        verif, optionnel, un booléen indiquant si le programme doit demander la confirmation de l'utilisateur ou non, par défaut sur True
-    """
-    if fichier_existe(file) and "." in file: # on vérifie que le fichier existe
-        kill = True
-        if verif:
-            from tkinter import messagebox
-            if not messagebox.askyesno("Confirmation", "Êtes-vous sûr de vouloir supprimer le fichier " + file +  " ?"):
-                kill = False
-
-        if kill:
-            os.remove(file)
-
-def add_fichier(path, file, contenu = ""):
-    """
-    fonction permettant de créer un fichier
-    parametres:
-        path, une chaine de caracteres avec le chemin d'accès au répertoire qui contiendrat le fichier
-        file, une chaine de caracteres avec le nom du fichier
-        contenu, une chaine de caracteres à mettre dans le fichier crée
-    """
-    with open(path + "/" + file, "x") as fichier:
-        fichier.write(contenu)
+############################ ajout/suppression #################################
 
 def add_ligne(path, file, contenu):
     """
@@ -194,14 +124,65 @@ def remplacer_ligne(path, file, numero, texte):
 
     add_ligne(path, file, nouveau)
 
-def lister_fichier(path):
+def suppr_lignes(file, *i_lines):
     """
-    fonction permettant de lister tous les éléments d'un répertoire donnée
+    fonction permettant de supprimer les lignes d'un document grâce à leurs indices
     parametres:
-        path, une chaine de caracteres indiquant le chemin vers le repertoire à lister
-    renvoie une liste avec le nom de tous les éléments présent
+        file, une chaine de caracteres indiquant le chemin vers le fichier
+        i_lines, des nombres entier étant les indices des lignes à supprimer (la première ligne à pour indice 1)
     """
-    return os.listdir(path)
+    if fichier_existe(file):
+        save = []
+
+        with open(file) as f:
+
+            # on enregistre que les lignes que l'ont souhaite gardé
+            i = 1
+            for line in f.readlines():
+                if i not in i_lines:
+                    save.append(line)
+                i += 1
+
+        # on réecrit le fichier avec seulement les lignes enregistrées
+        with open(file, "w") as f:
+            f.writelines(save)
+
+def add_fichier(path, file, contenu = ""):
+    """
+    fonction permettant de créer un fichier
+    parametres:
+        path, une chaine de caracteres avec le chemin d'accès au répertoire qui contiendrat le fichier
+        file, une chaine de caracteres avec le nom du fichier
+        contenu, une chaine de caracteres à mettre dans le fichier crée
+    """
+    with open(path + "/" + file, "x") as fichier:
+        fichier.write(contenu)
+
+def suppr_fichier(file, verif = True):
+    """
+    fonction permettant de supprimer un fichier
+    parametres:
+        file, une chaine de caracteres avec le chemin d'accès au fichier ou au répertoire
+        verif, optionnel, un booléen indiquant si le programme doit demander la confirmation de l'utilisateur ou non, par défaut sur True
+    """
+    if fichier_existe(file) and "." in file: # on vérifie que le fichier existe
+        kill = True
+        if verif:
+            from tkinter import messagebox
+            if not messagebox.askyesno("Confirmation", "Êtes-vous sûr de vouloir supprimer le fichier " + file +  " ?"):
+                kill = False
+
+        if kill:
+            os.remove(file)
+
+def add_repertoire(path, name):
+    """
+    fonction permettant de supprimer un répertoire
+    parametres:
+        path, une chaine de caracteres indiquant le chemin vers le repertoire parent
+        name, une chaine de caracteres avec le nom du nouveau repertoire
+    """
+    os.mkdir(path + "/" + name)
 
 def suppr_repertoire(path):
     """
@@ -213,11 +194,49 @@ def suppr_repertoire(path):
     sh.rmtree(path)
     os.rmdir(path)
 
-def add_repertoire(path, name):
+################################################################################
+
+def execute_sql_file(path, file, db):
     """
-    fonction permettant de supprimer un répertoire
+    fonction permettant d'exécuter une requete sql dans une base de données, ici, on lit le fichier puis on l'éxécute
     parametres:
-        path, une chaine de caracteres indiquant le chemin vers le repertoire parent
-        name, une chaine de caracteres avec le nom du nouveau repertoire
+        path, une chaine de caracteres contenant le chemin d'accès au fichier avec le fichier sql
+        file, une chaine de caracteres contenant le nom du fichier à exécuter
+        db, une chaine de caracteres avec le chemin entier vers la base de données dans laquelle exécuter la requete
+    renvoie les résultats de la requetes sous forme de liste
     """
-    os.mkdir(path + "/" + name)
+    # l'importation de ce module change selon l'utilisation du fichier (directe ou non)
+    try:
+        import module_database as Database
+    except:
+        from modules import module_database as Database
+
+    sql_liste = lire_fichier(path + "/" + file) # on lit le fichier contenant le code SQL
+
+    # On établit la requête sql dans une seule ligne/chaine de caractères
+    sql = ""
+    for i in range(len(sql_liste)):
+        sql += sql_liste[i] + " "
+
+    try: # Résolution du probleme "sqlite3.OperationalError: no such table:", si on y arrive pas avec le module dédié
+        base = Database.database(db)
+        result = base.execute(sql)
+    except: # On l'effectue de manière directe
+        import sqlite3
+        conn = sqlite3.connect(db)
+        cur = conn.cursor()
+        result = cur.execute(sql).fetchall()
+        conn.close()
+
+    return result
+
+def derniere_modif(path):
+    """
+    fonction permettant de connaitre la date de la derniere modification d'un fichier
+    parametres:
+        path, le chemin complet vers le fichier a éxaminé
+    renvoie une chaine de caracteres contenant une date, si le fichier n'existe pas, renvoie None
+    """
+    if fichier_existe(path):
+        return os.path.getmtime(path)
+    return None
