@@ -39,6 +39,8 @@ def stockage_question(path, file):
 
     return requetes
 
+################################################################################
+
 def Lancement(base, requetes, config):
     """
     fonction permettant le lancement du programme dans sa globalité
@@ -65,14 +67,16 @@ def Lancement(base, requetes, config):
 
     pprint.finhtml()
 
+    MAJ(requetes, config, base)
+
 def question(requetes, config, base):
     """
-    fonction permettant d'afficher les questions dans une fenetre tkinter
+    fonction permettant d'afficher les questions dans une page web
     parametres:
         requetes, une chaine de caracteres avec le chemin d'accès aux requetes et au fichier de configuration
         config, une chaine de caracteres indiquant le nom du fichier de configuration
         base, une chaine de caracteres contenant le chemin d'accès vers la base de données
-    affiche les questions dans le fenetre tkinter, la selection de la question entraine l'affichage de la réponse dans une autre fenetre tkinter
+    affiche les questions dans une page web, la selection de la question entraine l'affichage de la réponse dans une autre page web
     """
     dictionnaire = stockage_question(requetes, config) # On stocke toutes les informations contenu dans le fichier de configuration
 
@@ -80,36 +84,28 @@ def question(requetes, config, base):
 
     pprint.affichage_question_html(dictionnaire, base, True) # On crée les fichiers html auquel sont rattachés les boutons
 
-
-def caracteres(texte):
+def MAJ(requetes, config, base):
     """
-    fonction permettant d'obtenir une liste de tous les caracteres distinct présent dans une chaine de caracteres
+    fonction permettant de faire les mises à jour des pages html si la base de données à été modifiée
     parametres:
-        texte, une chaine de caracteres
-    renvoie une liste de caracteres
+        requetes, une chaine de caracteres avec le chemin d'accès aux requetes et au fichier de configuration
+        config, une chaine de caracteres indiquant le nom du fichier de configuration
+        base, une chaine de caracteres contenant le chemin d'accès vers la base de données
     """
-    lettres = []
+    date = read.derniere_modif(base)
+    if date != None:
+        modification = read.lire_fichier("data/date.txt")[0]
+        date = float(date)
+        modification = float(modification)
+        if date > modification:
+            docs = read.lister_fichier("data")
+            for i in docs:
+                if ".html" in i:
+                    read.suppr_fichier("data/" + i)
 
-    for caractere in texte:
-        if caractere not in lettres:
-            lettres += [caractere]
-
-    return lettres
-
-def len_maximum(tab):
-    """
-    fonction parmettant de connaître la longueur maximale des éléments d'un tableau
-    parametres:
-        tab, une liste d'éléments
-    renvoi un entier étant la longueur maximale des elements du tableau
-    """
-    maxi = 0
-
-    for elmt in tab: # On parcours le tableau
-        if len(str(elmt)) > maxi: # on choisit la plus grande longueur d'élément
-            maxi = len(str(elmt))
-
-    return maxi
+            pprint.affichage_question_html(dictionnaire, base, True)
+            credit()
+            aide()
 
 def aide():
     """
@@ -150,6 +146,40 @@ def credit():
 
     read.add_fichier("data", "credits.html", texte)
 
+################################################################################
+
+def caracteres(texte):
+    """
+    fonction permettant d'obtenir une liste de tous les caracteres distinct présent dans une chaine de caracteres
+    parametres:
+        texte, une chaine de caracteres
+    renvoie une liste de caracteres
+    """
+    lettres = []
+
+    for caractere in texte:
+        if caractere not in lettres:
+            lettres += [caractere]
+
+    return lettres
+
+def len_maximum(tab):
+    """
+    fonction parmettant de connaître la longueur maximale des éléments d'un tableau
+    parametres:
+        tab, une liste d'éléments
+    renvoi un entier étant la longueur maximale des elements du tableau
+    """
+    maxi = 0
+
+    for elmt in tab: # On parcours le tableau
+        if len(str(elmt)) > maxi: # on choisit la plus grande longueur d'élément
+            maxi = len(str(elmt))
+
+    return maxi
+
+################################################################################
+
 def test():
     """
     fonction permettant de tester l'intégralité des requêtes recensées dans alire.md
@@ -169,6 +199,7 @@ def test():
         print("Tous les tests ont été passé avec succès")
     else:
         print("Liste des tests ayant échoué : ", liste_echec)
+
 
 if __name__ == "__main__":
     Lancement("imdb.db", "requetes", "alire.md")
