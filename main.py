@@ -63,11 +63,11 @@ def Lancement(base, requetes, config):
     print("</menu>")
     print("<menu>")
 
-    question(requetes, config, base)
+    question(requetes, config, base) # on crée les boutons permettant d'accéder aux requetes
 
-    pprint.finhtml()
+    pprint.finhtml() # on affiche la fin de la page
 
-    MAJ(requetes, config, base)
+    MAJ(requetes, config, base) # on mets les requetes à jour si la base à été modifiée
 
 def question(requetes, config, base):
     """
@@ -82,7 +82,7 @@ def question(requetes, config, base):
 
     pprint.affichage_question_html(dictionnaire, base) # On affiche les boutons dans la page
 
-    pprint.affichage_question_html(dictionnaire, base, True) # On crée les fichiers html auquel sont rattachés les boutons
+    pprint.affichage_question_html(dictionnaire, base, True) # On crée les fichiers html auquel sont rattachés les boutons si ils n'existent pas déjà
 
 def MAJ(requetes, config, base):
     """
@@ -93,19 +93,26 @@ def MAJ(requetes, config, base):
         base, une chaine de caracteres contenant le chemin d'accès vers la base de données
     """
     date = read.derniere_modif(base)
-    if date != None:
-        modification = read.lire_fichier("data/date.txt")[0]
+    if date != None: # on vérifie qu'il y a bien une date
+        modification = read.lire_fichier("data/date.txt")[0] # on prend la date enregistré dans le fichier date.txt
+        # on transforme les chaines de carcteres obtenu en nombre
         date = float(date)
         modification = float(modification)
-        if date > modification:
+
+        if date > modification: # si la derniere modification est plus récente que la derniere sauvegarde
+            # on effectue une nouvelle sauvegarde
             docs = read.lister_fichier("data")
             for i in docs:
+                # on supprime les fichiers html sauvegarder
                 if ".html" in i:
                     read.suppr_fichier("data/" + i)
 
+                # on les recréer
+            dictionnaire = stockage_question(requetes, config)
             pprint.affichage_question_html(dictionnaire, base, True)
             credit()
             aide()
+
 
 def aide():
     """
@@ -199,6 +206,8 @@ def test():
         print("Tous les tests ont été passé avec succès")
     else:
         print("Liste des tests ayant échoué : ", liste_echec)
+        if len(liste_echec) == len(dictionnaire.keys()):
+            print("Il se peut que la base soit manquante.")
 
 
 if __name__ == "__main__":
