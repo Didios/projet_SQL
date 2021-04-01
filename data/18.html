@@ -2,21 +2,33 @@
 18.Quels sont les titres des films les plus connus de Sean Connery ?
 </head><body>
 <br><br>
-SELECT originalTitle<br>FROM title_basics<br>JOIN name_titles <br>ON knownForTitles = tconst <br>JOIN name_basics <br>ON name_basics.nconst = name_titles.nconst <br>WHERE primaryName = "Sean Connery"<br>AND titleType = "movie"<br><br><br>---------------------------------------------------------------------
+<pre>
+SELECT originalTitle
+FROM title_basics
+JOIN name_titles 
+ON knownForTitles = tconst 
+JOIN name_basics 
+ON name_basics.nconst = name_titles.nconst 
+WHERE primaryName = "Sean Connery"
+AND titleType = "movie"
+
+</pre>
+---------------------------------------------------------------------
 <br><br>
 <style> table, th, td {border: 1px solid black;  padding: 5px; border-collapse: collapse;} </style>
 <table>
-	<tr>
-		<td>Goldfinger</td>
-	</tr>
-	<tr>
-		<td>The Rock</td>
-	</tr>
-	<tr>
-		<td>The Untouchables</td>
-	</tr>
-	<tr>
-		<td>Thunderball</td>
-	</tr>
+<tr>
+<td>Goldfinger</td>
+</tr>
+<tr>
+<td>The Rock</td>
+</tr>
+<tr>
+<td>The Untouchables</td>
+</tr>
+<tr>
+<td>Thunderball</td>
+</tr>
 </table>
+
 </body></html>

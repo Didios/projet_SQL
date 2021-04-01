@@ -2,12 +2,22 @@
 05.Quel est le titre original du film  Les dents de la mer  ?
 </head><body>
 <br><br>
-SELECT originalTitle<br>FROM title_basics<br>JOIN title_akas <br>ON titleId = tconst <br>WHERE title = "Les dents de la mer"<br>AND titleType = "movie"<br><br><br>--------------------------------------------------------------
+<pre>
+SELECT originalTitle
+FROM title_basics
+JOIN title_akas 
+ON titleId = tconst 
+WHERE title = "Les dents de la mer"
+AND titleType = "movie"
+
+</pre>
+--------------------------------------------------------------
 <br><br>
 <style> table, th, td {border: 1px solid black;  padding: 5px; border-collapse: collapse;} </style>
 <table>
-	<tr>
-		<td>Jaws</td>
-	</tr>
+<tr>
+<td>Jaws</td>
+</tr>
 </table>
+
 </body></html>

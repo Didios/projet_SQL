@@ -2,29 +2,47 @@
 20.Quel sont les realisateurs ayant fait les cinq film les mieux notes ? Indiquer les noms des films correspondants.  
 </head><body>
 <br><br>
-SELECT primaryName, primaryTitle<br>FROM name_basics, title_basics<br>JOIN title_principals <br>ON title_principals.nconst = name_basics.nconst<br>WHERE title_principals.tconst = title_basics.tconst<br>AND category = "director"<br>AND title_basics.tconst IN(SELECT title_basics.tconst<br>					FROM title_basics<br>					JOIN title_ratings <br>					ON title_ratings.tconst = title_basics.tconst<br>					WHERE titleType = "movie"<br>					ORDER BY averageRating <br>					DESC<br>					LIMIT 5)<br><br><br>-----------------------------------------------------------------------------------------------------------------------
+<pre>
+SELECT primaryName, primaryTitle
+FROM name_basics, title_basics
+JOIN title_principals 
+ON title_principals.nconst = name_basics.nconst
+WHERE title_principals.tconst = title_basics.tconst
+AND category = "director"
+AND title_basics.tconst IN(SELECT title_basics.tconst
+					FROM title_basics
+					JOIN title_ratings 
+					ON title_ratings.tconst = title_basics.tconst
+					WHERE titleType = "movie"
+					ORDER BY averageRating 
+					DESC
+					LIMIT 5)
+
+</pre>
+-----------------------------------------------------------------------------------------------------------------------
 <br><br>
 <style> table, th, td {border: 1px solid black;  padding: 5px; border-collapse: collapse;} </style>
 <table>
-	<tr>
-		<td>Hemanth Srinivas</td>
-		<td>Pichhodu</td>
-	</tr>
-	<tr>
-		<td>Don Tjernagel</td>
-		<td>The Last Regret</td>
-	</tr>
-	<tr>
-		<td>Don Tjernagel</td>
-		<td>Red</td>
-	</tr>
-	<tr>
-		<td>Valerio Zanoli</td>
-		<td>Hopeful Notes</td>
-	</tr>
-	<tr>
-		<td>Msn Surya</td>
-		<td>Suvarna Sundari</td>
-	</tr>
+<tr>
+<td>Hemanth Srinivas</td>
+<td>Pichhodu</td>
+</tr>
+<tr>
+<td>Don Tjernagel</td>
+<td>The Last Regret</td>
+</tr>
+<tr>
+<td>Don Tjernagel</td>
+<td>Red</td>
+</tr>
+<tr>
+<td>Valerio Zanoli</td>
+<td>Hopeful Notes</td>
+</tr>
+<tr>
+<td>Msn Surya</td>
+<td>Suvarna Sundari</td>
+</tr>
 </table>
+
 </body></html>

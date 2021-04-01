@@ -2,12 +2,24 @@
 08.Quel est le film ayant recueilli le plus de votes ?
 </head><body>
 <br><br>
-SELECT originalTitle<br>FROM title_basics<br>JOIN title_ratings <br>ON title_ratings.tconst = title_basics.tconst <br>WHERE titleType = "movie"<br>ORDER BY numVotes <br>DESC<br>LIMIT 1<br><br><br>-------------------------------------------------------
+<pre>
+SELECT originalTitle
+FROM title_basics
+JOIN title_ratings 
+ON title_ratings.tconst = title_basics.tconst 
+WHERE titleType = "movie"
+ORDER BY numVotes 
+DESC
+LIMIT 1
+
+</pre>
+-------------------------------------------------------
 <br><br>
 <style> table, th, td {border: 1px solid black;  padding: 5px; border-collapse: collapse;} </style>
 <table>
-	<tr>
-		<td>The Shawshank Redemption</td>
-	</tr>
+<tr>
+<td>The Shawshank Redemption</td>
+</tr>
 </table>
+
 </body></html>
