@@ -51,24 +51,25 @@ def tableau_html(tableau):
 
     return chaine
 
-def texte_html(texte, debut = True, fin = True):
+def texte_html(texte):
     """
     fonction permettant d'afficher un texte dans une page web
     parametres:
         texte, une chaine de caracteres à afficher
-        debut, optionnel, un booléen indiquant si la page web doit être débuté, par défaut True
-        fin, optionnel, un booléen indiquant si la page web doit être terminer, par défaut True
     renvoie une chaine de caracteres avec l'impression necessaires
     """
-    if debut:
-        debuthtml()
+    chaine = ""
 
-    print("<div style=\"width: 100%; font-size: 25px; font-weight: bold; text-align: center;\">")
-    print(texte)
-    print("</div>\n")
+    chaine += "<pre>\n"
 
-    if fin:
-        finhtml()
+    t = ""
+    for i in texte.split("\r"): # s'il y a des \r et des \n d'affilées, on saute plus de ligne que prévue, donc on enlève les \r
+        t += i
+
+    chaine += t
+    chaine += "</pre>\n"
+
+    return chaine
 
 def affichage_question_html(stockage, base, creation_dossier = False):
     """
@@ -88,13 +89,12 @@ def affichage_question_html(stockage, base, creation_dossier = False):
             """
             sous-fonction permettant de creer un fichier html avec l'énoncé, la réponse et l'affichage des résultats d'une requete
             """
-            page = "<html><head>\n%s\n</head><body>" % question
+            page = "<html><head>\n%s\n</head><body>" % question # on mets l'entête de la page avec la question
             page += "\n<br><br>\n"
 
-            requete = stockage[numero][1].split("\n")
-            for ligne in requete:
-                page += ligne
-                page += "<br>"
+            # on ajoute la réponse en respectant l'affichage souhaité (les sauts à la ligne)
+            requete = stockage[numero][1]
+            page += texte_html(requete)
 
             page += "-" * len(question) + "\n<br><br>\n"
 
