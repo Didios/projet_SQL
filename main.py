@@ -125,10 +125,11 @@ def aide():
 
     # on met le contenu du fichier README.md dans la page
     contenu = read.lire_fichier("README.md", True)
+    t = ""
     for i in contenu:
-        texte += "</br>\n"
-        texte += i + "\n"
+        t += i + "\n"
 
+    texte += pprint.texte_html(t)
 
     texte += "</p></body></html>"
 
@@ -145,9 +146,11 @@ def credit():
 
     # on met le contenu du fichier README.md dans la page
     contenu = read.lire_fichier("credits.md", True)
+    t = ""
     for i in contenu:
-        texte += "</br>\n"
-        texte += i + "\n"
+        t += i + "\n"
+
+    texte += pprint.texte_html(t)
 
     texte += "</p></body></html>"
 
