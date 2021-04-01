@@ -98,10 +98,14 @@ def affichage_question_html(stockage, base, creation_dossier = False):
 
             page += "-" * len(question) + "\n<br><br>\n"
 
-            tableau_page = read.execute_sql_file("requetes", stockage[numero][2], base) # cette ligne prend du temps à s'executer pour certaines requetes
+            if read.fichier_existe(base):
+                tableau_page = read.execute_sql_file("requetes", stockage[numero][2], base) # cette ligne prend du temps à s'executer pour certaines requetes
 
-            # on ajoute un tableau html qui acceuillera la reponse
-            page += tableau_html(tableau_page) + "\n"
+                # on ajoute un tableau html qui acceuillera la reponse
+                page += tableau_html(tableau_page) + "\n"
+            else:
+                page += "Impossibilité d'accès à la base\n, aucune réponse n'as pu être donnée"
+                read.add_ligne("data", "modification.txt", numero)
 
             page += "</body></html>"
 

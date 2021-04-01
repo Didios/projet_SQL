@@ -21,9 +21,12 @@ def devine_numero(texte):
         while i < len(texte): # tant que toute la chaîne n'as pas été parcouru
 
             nbr = ""
-            while texte[i] in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]: # tant que le caractere observer est un chiffre
-                nbr += texte[i] # on ajoute le caractere au nombre
-                i += 1
+            while i < len(texte): # tant que le caractere observer est un chiffre
+                if texte[i] in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
+                    nbr += texte[i] # on ajoute le caractere au nombre
+                    i += 1
+                else:
+                    break
 
             if nbr != "": # Si on a trouvé un nombre
                 nbr = int(nbr) # on le transforme en entier
@@ -97,7 +100,7 @@ def add_ligne(path, file, contenu):
         add_fichier(path, file)
 
     with open(path + "/" + file, "a") as fichier:
-        fichier.write(contenu)
+        fichier.write("\n" + contenu)
 
 def remplacer_ligne(path, file, numero, texte):
     """
