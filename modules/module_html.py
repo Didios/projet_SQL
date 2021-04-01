@@ -1,6 +1,6 @@
 #!"C:\Winpython\python-3.8.5.amd64\python.exe"
 
-# module qui gère l'aspect html du programme principal
+# module qui gère l'affichage/l'aspect html du programme principal
 # fait par Didier Mathias
 
 # l'importation de ces modules dépend de la façon dans est exécuté le fichier
@@ -31,36 +31,25 @@ def finhtml():
     """
     print("</body></html>")
 
-def tableau_html(tableau, debut = True, fin = True):
+def tableau_html(tableau):
     """
     fonction permettant d'afficher un tableau dans une page web
     parametres:
         tableau, une liste dont chaque élément est une lsite avec avec le contenu d'une ligne du tableau
-        debut, optionnel, un booléen indiquant si la page web doit être débuté, par défaut True
-        fin, optionnel, un booléen indiquant si la page web doit être terminer, par défaut True
     renvoie une chaine de caracters avec l'impression necessaire
     """
-
-    if debut:
-        debuthtml()
-
-    print("<style> table, th, td {border: 1px solid black;  padding: 5px; border-collapse: collapse;} </style> ")
-
-    print("<table>")
+    chaine = "<style> table, th, td {border: 1px solid black;  padding: 5px; border-collapse: collapse;} </style>\n"
+    chaine += "<table>\n" # début du tableau
 
     for ligne in tableau:
-        print("<tr>")
+        chaine += "<tr>\n"
         for colonne in ligne:
-            print("<td>" + str(colonne) + "</td>")
-        print("</tr>")
+            chaine += "<td>" + str(colonne) + "</td>\n"
+        chaine += "</tr>\n"
 
-    print("</table>")
+    chaine += "</table>\n"
 
-    print(table)
-
-    if fin:
-        finhtml()
-
+    return chaine
 
 def texte_html(texte, debut = True, fin = True):
     """
@@ -96,6 +85,9 @@ def affichage_question_html(stockage, base, creation_dossier = False):
 
     if creation_dossier:
         def new_page(stockage, question, numero): # prend trop de temps
+            """
+            sous-fonction permettant de creer un fichier html avec l'énoncé, la réponse et l'affichage des résultats d'une requete
+            """
             page = "<html><head>\n%s\n</head><body>" % question
             page += "\n<br><br>\n"
 
@@ -108,18 +100,9 @@ def affichage_question_html(stockage, base, creation_dossier = False):
 
             tableau_page = read.execute_sql_file("requetes", stockage[numero][2], base) # cette ligne prend du temps à s'executer pour certaines requetes
 
-            # on cree un tableau qui acceuillera la reponse
-            page += "<style> table, th, td {border: 1px solid black;  padding: 5px; border-collapse: collapse;} </style>\n"
+            # on ajoute un tableau html qui acceuillera la reponse
+            page += tableau_html(tableau_page) + "\n"
 
-            table = "<table>\n"
-            for ligne in tableau_page:
-                table += "\t<tr>\n"
-                for colonne in ligne:
-                    table += "\t\t<td>" + str(colonne) + "</td>\n"
-                table += "\t</tr>\n"
-            table +="</table>\n"
-
-            page += table
             page += "</body></html>"
 
             nom_page = str(numero) + ".html"
