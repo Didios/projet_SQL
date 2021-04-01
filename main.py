@@ -93,25 +93,36 @@ def MAJ(requetes, config, base):
         base, une chaine de caracteres contenant le chemin d'accès vers la base de données
     """
     date = read.derniere_modif(base)
+    modification = read.lire_fichier("data/modification.txt") # on prend les données contenu dans modification.txt
     if date != None: # on vérifie qu'il y a bien une date
-        modification = read.lire_fichier("data/date.txt")[0] # on prend la date enregistré dans le fichier date.txt
+        modif = modification[0]
         # on transforme les chaines de carcteres obtenu en nombre
         date = float(date)
-        modification = float(modification)
+        modif = float(modif)
 
-        if date > modification: # si la derniere modification est plus récente que la derniere sauvegarde
+        if date > modif: # si la derniere modification est plus récente que la derniere sauvegarde
             # on effectue une nouvelle sauvegarde
             docs = read.lister_fichier("data")
             for i in docs:
                 # on supprime les fichiers html sauvegarder
                 if ".html" in i:
-                    read.suppr_fichier("data/" + i)
+                    read.suppr_fichier("data/" + i, False)
 
-                # on les recréer
-            dictionnaire = stockage_question(requetes, config)
-            pprint.affichage_question_html(dictionnaire, base, True)
             credit()
             aide()
+
+    # si les fichiers ont été crée mais qu'ils ont eu un pbm, ils sont enregistrées dans modification.txt, on les supprime donc
+    for numero in modification[1:]:
+        numero = read.devine_numero(numero)[0]
+        if read.fichier_existe("data/%s.html" % numero):
+            read.suppr_fichier("data/%s.html" % numero, False)
+
+    # on recrée les fichiers supprimer
+    dictionnaire = stockage_question(requetes, config)
+    pprint.affichage_question_html(dictionnaire, base, True)
+
+    read.suppr_fichier("data/modification.txt", False)
+    read.add_fichier("data", "modification.txt", str(date))
 
 
 def aide():
