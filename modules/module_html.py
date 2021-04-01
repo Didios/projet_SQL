@@ -105,7 +105,7 @@ def affichage_question_html(stockage, base, creation_dossier = False):
                 page += tableau_html(tableau_page) + "\n"
             else:
                 page += "Impossibilité d'accès à la base\n, aucune réponse n'as pu être donnée"
-                read.add_ligne("data", "modification.txt", numero)
+                read.add_ligne("data", "modification.txt", str(numero))
 
             page += "</body></html>"
 
