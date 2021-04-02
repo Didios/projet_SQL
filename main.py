@@ -98,7 +98,10 @@ def MAJ(requetes, config, base):
         modif = modification[0]
         # on transforme les chaines de carcteres obtenu en nombre
         date = float(date)
-        modif = float(modif)
+        if modif == "None":
+            modif = 0
+        else:
+            modif = float(modif)
 
         if date > modif: # si la derniere modification est plus récente que la derniere sauvegarde
             # on effectue une nouvelle sauvegarde
