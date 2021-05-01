@@ -1,5 +1,3 @@
-# programme réalisé par Didier Mathias en classe de Terminale B
-
 def taille_colonne(tableau):
     """
     fonction qui renvoie la taille minimale que doit avoir chaque colonne du tableau à afficher

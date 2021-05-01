@@ -1,4 +1,9 @@
-# programme réalisé par Didier Mathias en classe de Terminale B
+'''
+Remarque
+Le sobriquet « tri bulles » vient d’une interprétation imagée selon laquelle l’algorithme
+fait « remonter » petit à petit les éléments « l´egers » vers la « surface ».
+
+'''
 
 def tri_bulles(T):
     """
@@ -122,6 +127,27 @@ def tri_fusion(T):
         T = fusion(T1, T2)
         return T
 
+'''
+Dans le tri rapide :
+
+Pseudo-code
+Voici le pseudo-code du tri rapide :
+
+triRapide (début, fin) :
+   Si le tableau a un seul élément
+      Arrêter
+   Sinon
+      Choisir le pivot = ?
+      Réorganiser le tableau selon notre pivot
+      triRapide(début, pivot - 1)
+      triRapide(pivot + 1, fin)
+
+Le choix du pivot est essentiel.
+Si, on regarde le pire des cas, on se rend compte du problème que pause cet algorithme. Si le tableau à trier est organisé de telle manière que, à chaque itération,
+une des deux parties ne contient qu'un seul élement, alors sa complexité est polynomiale. Que l'on choisisse un pivot au milieu,
+à la fin ou au début de la partie à traiter ne change rien : il existera toujours un cas pour lequel ce tri est particulièrement inefficace.
+
+'''
 def tri_rapide(T):
     """
     fonction permettant de trier un tableau de valeur avec le tri rapide
