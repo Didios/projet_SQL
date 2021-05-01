@@ -22,7 +22,8 @@ def stockage_question(path, file):
         question = None
         if contenu[i][0] == "#": # si la ligne choisit est une question
             question = contenu[i][1:] # On choisit cette ligne comme étant une question
-            sql_file = contenu[i-1] # On choisit la ligne précédente comme étant le fichier répondant à cette question ( ici les .sql)
+            sql_file = contenu[i-1][:-1] # On choisit la ligne précédente comme étant le fichier répondant à cette question ( ici les .sql)
+            # le [:-1] permet d'ejecter le /r à la fin de la ligne
 
             # On détermine le numero de la question
             numero = ""
@@ -38,7 +39,7 @@ def stockage_question(path, file):
                 i += 1
 
         i+=1
-        if question != None: # on vérifie q'une question a été faite
+        if question != None: # on vérifie qu'une question a été faite
             requetes[int(numero)] = [question, reponse, sql_file] # On ajoute les informations prises dans le dictionnaire de stockage
 
     return requetes
