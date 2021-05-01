@@ -19,6 +19,7 @@ def stockage_question(path, file):
 
     i = 1
     while i < len(contenu): # Tant que l'on n'as pas vus l'intégralité des lignes du fichier
+        question = None
         if contenu[i][0] == "#": # si la ligne choisit est une question
             question = contenu[i][1:] # On choisit cette ligne comme étant une question
             sql_file = contenu[i-1] # On choisit la ligne précédente comme étant le fichier répondant à cette question ( ici les .sql)
@@ -37,7 +38,8 @@ def stockage_question(path, file):
                 i += 1
 
         i+=1
-        requetes[int(numero)] = [question, reponse, sql_file] # On ajoute les informations prises dans le dictionnaire de stockage
+        if question != None: # on vérifie q'une question a été faite
+            requetes[int(numero)] = [question, reponse, sql_file] # On ajoute les informations prises dans le dictionnaire de stockage
 
     return requetes
 
